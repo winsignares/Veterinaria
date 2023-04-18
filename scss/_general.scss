@@ -1,0 +1,13 @@
+@import "./variables";
+html{
+    scroll-behavior: smooth;
+}
+
+section,
+footer{
+    overflow-x: hidden;
+}
+
+body{
+    background-color: $background-container;
+}

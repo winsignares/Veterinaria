@@ -1,0 +1,29 @@
+@import "./variables";
+.container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  
+  .contenido-flex{
+      display: flex;
+      justify-content: center;
+      background-color: $background-container;
+  }
+  
+  .contenido{
+      display: flex;
+      flex-direction: column;
+      width: 83rem;
+      background-color: $background-contenido;
+  }
+  .contenido-serv{
+      display: flex;
+      flex-direction: column;
+      width: 83rem;
+      background-color: $background-contenido;
+  }
+
+  .container-xl{
+    padding-left: 0;
+    padding-right: 0;
+}
