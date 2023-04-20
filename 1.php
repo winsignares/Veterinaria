@@ -1,7 +1,7 @@
 <?php
 
 $nombre = $_POST['nombre'];
-$email = $_POST['email'];
+$email = $_POST['Gmail'];
 $telefono = $_POST['telefono'];
 $tconsulta = $_POST['tconsulta'];
 $consulta = $_POST['consulta'];
@@ -14,9 +14,9 @@ $formcontent="
     Consulta: $consulta.
 ";
 
-$recipient = "hmpduran@hotmail.com, bm.duran1@gmail.com";
+$recipient = "veterinariahuellas@hotmail.com, veterinariahuellas@gmail.com";
 
-$subject = "Consulta via web | Veterinaria Duran de $nombre";
+$subject = "Consulta via web | Veterinaria Huellas de $nombre";
 
 $header = "From: $email \r\n";
 $header .= "Content-Type: text/plain; charset=UTF-8";
