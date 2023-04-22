@@ -846,6 +846,9 @@ input, textarea, select {
   .tarjeta-productos {
     display: flex;
     flex-direction: column; }
+    .tarjeta-spa {
+      display: flex;
+      flex-direction: column; }
   .tarjeta-servicios {
     display: flex;
     flex-direction: column;
