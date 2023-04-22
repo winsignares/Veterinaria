@@ -294,7 +294,7 @@ body{
 
 .t6{
     grid-area: t6;
-    background-image: url(../img/image1.jpeg);
+    background-image: url(\img\1-7.jpeg);
 }
 
 
@@ -1057,6 +1057,10 @@ button, input, select, textarea {
     }
     
     .tarjeta-productos{
+        display: flex;
+        flex-direction: column;
+    }
+    .tarjeta-spa{
         display: flex;
         flex-direction: column;
     }
