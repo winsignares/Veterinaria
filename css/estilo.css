@@ -299,7 +299,7 @@ input, textarea, select {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
-  grid-template-areas: "t1 t2 t3 t4"
+  grid-template-areas: "t1 t2 t3 t4 "
  "t5 t5 t6 t6"
  "t5 t5 t6 t6";
   align-items: center;
@@ -319,7 +319,8 @@ input, textarea, select {
     .tarjeta-grid .ver .t1,
     .tarjeta-grid .ver .t2,
     .tarjeta-grid .ver .t3,
-    .tarjeta-grid .ver .t4 {
+    .tarjeta-grid .ver .t4 
+    .tarjeta-grid .ver .t7 {
       height: 20rem; }
     .tarjeta-grid .ver:hover {
       transform: scale(1.1);
@@ -366,7 +367,7 @@ input, textarea, select {
 
 .t3 {
   grid-area: t3;
-  background-image: url(../img/entrada.jpg); }
+  background-image: url(../img/veterinario.jpg); }
 
 .t4 {
   grid-area: t4;
@@ -377,13 +378,12 @@ input, textarea, select {
   background-image: url(../img/image7.jpeg); }
 
 .t6 {
-  grid-area: t6;
-  background-image: url(../img/image1.jpeg); }
+  grid-area: t7;
+  background-image: url(../img/spaperro.jpg); }
 
-.t6,
+`;
 .t5 {
   height: 100%; }
-  .t6 .linea > h3,
   .t5 .linea > h3 {
     font-size: 2rem; }
 
@@ -410,26 +410,6 @@ input, textarea, select {
         line-height: 2.5rem;
         transition: all 1s; }
 
-.veterinario {
-  background-color: #aacddf; }
-  .veterinario .img-vet {
-    justify-content: center;
-    align-items: center; }
-    .veterinario .img-vet img {
-      width: 20rem;
-      border-radius: 50%; }
-    .veterinario .img-vet h4,
-    .veterinario .img-vet h2 {
-      color: #39667e; }
-  .veterinario .text-vet {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #39667e; }
-    .veterinario .text-vet h2 {
-      line-height: 3rem; }
-    .veterinario .text-vet h4 {
-      line-height: 3rem; }
 
 .card:hover {
   box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
@@ -816,7 +796,7 @@ input, textarea, select {
         .tarjeta-grid .tarjeta .titulo-tarjeta .linea h3 {
           margin-left: 10px; }
     .tarjeta-grid .t6 {
-      align-items: flex-end; }
+      align-items: center; }
       .tarjeta-grid .t6 .linea {
         font-size: inherit; }
   .tarjeta-grid .tarjeta .linea h3 {
