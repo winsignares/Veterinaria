@@ -1,0 +1,75 @@
+.contenido-flex{
+        .contacto{
+                .formulario{
+                        .grid-form{
+                                margin-bottom: 5rem;
+                                background-color: #39667ea6;
+                                padding: 1.5rem 3rem 3rem 3rem;
+                                border-radius: 1rem;
+                                box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+                                position: relative;
+                                h3{
+                                        color: $blanco;
+                                        text-align: center;
+                                        padding-bottom: 0.75rem;
+                                        font-size: 2rem;
+                                }
+                                .form-item{
+                                        flex: 1;
+                                        input,
+                                        textarea{
+                                                color: $background-pie;
+                                                padding:1rem;
+                                                
+                                        }
+                                        select{
+                                                padding:1.208rem;
+                                        }
+                                }
+
+                        }
+                }
+                .acordion{
+                        border-radius: 5rem;
+                       
+                        .accordion{
+                                border: solid $navbar-contacto 4px;
+                                border-radius: 2rem;
+                                width: 540px;
+                                padding: 1rem;
+                                background-color: $blanco;
+                                position: absolute;
+                                bottom: 10rem;
+                                right: 21.5rem;
+                                box-shadow: rgba(14, 30, 37, 0.171) 0px 2px 8px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;                              
+                                
+                               .accordion-item{
+                                .accordion-header{
+                                        button{
+                                                border-radius: 2rem;
+                                                &:not(.collapsed){
+                                                        border: #fff;
+                                                        background-color: $blanco;
+                                                }
+                                                border: none;
+                                                font-size: 1.25rem;
+                                        }
+                                        padding:0.5rem .25rem;
+                                }
+                                .accordion-body{
+                                        p{
+                                                font-size: 1.25rem;
+
+                                        }
+                                }
+                               
+                                color: $background-pie;
+                                .accordion-button{
+                                        color: $background-pie;
+                                }
+                               }
+                        }
+                }
+        }
+        
+}

@@ -1,0 +1,666 @@
+@media screen and (max-width: 1800px) {
+    .html{
+        max-width: 1800px;
+    }
+.contenido-flex{
+    .contacto{
+        .acordion{
+            .accordion{
+                right: 18rem;
+            }
+
+        }
+    }
+}
+
+}
+
+@media screen and (max-width: 1700px) {
+    .contenido-flex{
+        .contacto{
+            .acordion{
+                .accordion{
+                    right: 11rem;
+                }
+    
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1550px) {
+    .contenido-flex{
+        .contacto{
+            .acordion{
+                .accordion{
+                    right: 10rem;
+                }
+    
+            }
+        }
+    }
+
+}
+
+@media screen and (max-width: 1400px) {
+    .carousel{
+        .carousel-item{
+            height:100%;
+            align-items: center;
+        }
+    }
+    
+    .html{
+        max-width: 1400px;
+    }
+    .encabezado{
+        .custom-bar{
+            .navbarra{
+                gap: 12rem;
+            }
+        }
+    }
+    
+    .veterinario{
+        .text-vet{
+            padding: 3rem;
+            h2{
+                line-height: 3rem;
+                font-size: 1.75rem;
+            }
+        }
+    }
+
+    .contenido-flex{
+        .contacto{
+            margin-bottom: 1rem;
+                .formulario{
+                    padding: 0 0 0 1rem;
+                        .grid-form{
+                           
+                            border-radius: 2rem;
+                            border-top-right-radius: 0;
+                            border-bottom-right-radius: 0;
+                            box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
+                            margin-bottom: 0;
+                            height: 100%;
+                            .form-item{
+                             padding:0.2rem;
+                            }
+                        }
+                }
+                .acordion{
+                    padding: 0 1rem 0 0 ;
+                    .accordion{
+                        border-top-left-radius: 0;
+                        border-bottom-left-radius: 0;
+                        box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
+                        height: 100%;
+                            width: 100%;
+                            padding: 1rem;
+                            position: inherit;
+                           .accordion-item{
+                            .accordion-header{
+                                margin-bottom: 2.1rem;
+                                    padding:0.25rem .15rem;
+                            }
+                            .accordion-body{
+                                padding: 0;                           
+                            }
+                           }
+                    }
+            } 
+        }
+        
+}
+}
+
+@media screen and (max-width: 1145px) {
+    .html{
+        max-width: 1145px;
+    }
+    .encabezado{
+        .custom-bar{
+            .navbarra{
+                gap: 2rem;
+            }
+        }
+    }
+
+    .contenido-flex-nos{
+        .nosotros{
+            .tarjeta-nosotros{
+                .titulo-nosotros{
+                    font-size: 1.2rem;
+                    line-height: 2rem;
+                }
+            }
+        }
+    }
+
+    .titulo-pagina{
+        div{
+            h2{
+                text-align: center;
+            }
+        }
+    }
+
+
+
+}
+
+@media screen and (max-width: 1024px) {
+    .html{
+        max-width: 1024px;
+    }
+
+    body{
+        max-width: 1024px;
+    }
+
+    .top{
+        width:1024px;
+        .top-content{
+            width: 100%;
+            font-size: 0.85rem;
+            h1{
+                font-size: 1.75rem;
+
+            }
+            .top-logo{
+                margin-top: 20px;
+                width: 350px;
+            }
+            a{
+                .scroll{
+                    width: 2.5rem;
+                }
+            }
+        }
+    } 
+
+
+   
+    .encabezado{
+        .custom-bar{
+            .navbarra{
+                gap: inherit;
+                width: 100%;
+                background-color: #589BB8;
+            }
+        }
+    }
+
+    .tarjeta-grid{
+            .tarjeta{
+            .linea{
+                h3{
+                    flex-direction: column !important;
+                }
+            }
+    
+        }
+    }
+
+
+
+    .redes-list{
+        margin-block: 20px;
+    }
+
+    .caja-formulario{
+        width: 25rem;
+        margin-right:inherit;
+    }
+
+    .pie{
+        .grid-pie{
+            .row{
+                .logo-pie{
+                    img{
+                        width: 17rem
+                    }
+                }
+
+                .col-lg-4{
+                    iframe{
+                        @include anchoAlto (300px, 150px);
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .navbar-toggler{
+        margin-right: 1rem;
+    }
+
+    .encabezado {
+        .custom-bar {
+            background-color: #589BB8;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+            .navbarra {
+                .navbar-collapse {
+                  .menu {
+                    .menu-item {
+                        width: 100%;
+                      a{
+                        text-align: center;
+                      }
+                    }
+                  }
+                }      
+                .navbar-brand {
+                  padding: inherit;
+                  .logo-imagen {
+                    padding-left: 1rem;
+                  }
+                }
+              }
+            }
+          }
+    
+    .pie{
+        .grid-pie{
+            .row{
+                .logo-pie{
+                    img{
+                        width: 22rem
+                    }
+                }
+                .leyenda{
+                    text-align: center !important;
+                    h3{
+                        font-size: 2rem;
+                    }
+                    p{
+                        font-size: 1.75rem;
+                    }
+                }
+                .col-lg-4{
+                    iframe{
+                        @include anchoAlto (600px, 200px);
+                    }
+                }
+            }
+        }
+    }
+    .contenido-flex-nos{
+        .nosotros{
+            .tarjeta-nosotros{
+                .titulo-nosotros{
+                    padding: .75rem 2rem;
+                    font-size: 1rem;
+                    line-height: 1.75rem;
+                }
+            }
+        }
+    }
+
+    .bg-foto{
+        h2{
+            padding: 6rem 3rem;
+        }
+    }
+
+    .contenido-flex{
+        .contacto{
+            padding-block: 1rem !important;
+                .formulario{
+                    padding: 1rem 1rem 0 1rem;
+                        .grid-form{
+                            border: none;
+                            
+                            border-radius: 2rem;
+                            border-bottom-left-radius:0 ;
+                            border-bottom-right-radius:0 ;
+                            }
+                        }
+                .acordion{
+                    padding: 0 1rem;
+                        .accordion{
+                            border-radius: 2rem;
+                            border-top-left-radius:0 ;
+                            border-top-right-radius:0 ;
+                                }
+                        }
+                }
+                
+        }
+}
+
+@media screen and (max-width: 768px) {
+    .html{
+        max-width: 768px;
+    }
+    body{
+        overflow-x: hidden ;
+        max-width: 768px;
+    }
+
+    .top{
+        .top-content{
+            width: 100%;
+            font-size: 0.75rem;
+            h1{
+                width: fit-content;
+                margin: 20px;
+                color: #fff;
+            }
+            .top-logo{
+                margin-top: 20px;
+                width: 300px;
+            }
+            a{
+                .scroll{
+                    width: 30px;
+                }
+            }
+        }
+    }
+
+    .navbarra{
+        gap: inherit;
+    }
+
+    .redes-list{
+        flex-direction: row;
+    }
+
+
+    .titulo-pagina{
+        box-shadow: none;
+    }
+
+    .contenido{
+        width: 100%;
+        margin: inherit;
+    }
+
+    .tarjeta-grid{
+        grid-template-columns: 1fr 1fr ;
+        grid-template-rows: repeat(3 1fr) ;
+        grid-template-areas: 
+        "t1 t2"
+        "t3 t4"
+        "t5 t5"
+        "t6 t6"
+        ;
+        align-items: center;
+        justify-content: center;
+        row-gap: 2rem;
+        flex: 1;
+        .tarjeta{
+            height: 20rem;
+        }
+        .linea {   
+            h3{
+            font-size: 1rem;
+            }
+        }
+    }
+
+    .prod{
+        border-radius: 0;
+    }
+
+    .caja-formulario{
+        width: 35rem;
+        margin-right:inherit;
+    }
+
+    .contenido-flex-nos{
+        .nosotros{
+            .tarjeta-nosotros{
+                display: flex;
+                flex-direction: column;
+                .titulo-nosotros{
+                    font-size: 1.5rem;
+                    line-height: 2.5rem;
+                    padding-inline: 1.75rem;
+                }
+            }
+        }
+    }
+
+    .pie{
+        .grid-pie{
+            .row{
+                .col-lg-4{
+                    iframe{
+                        @include anchoAlto (450px, 200px);
+                    }
+                }
+                .col-lg-12{
+                    .redes-pie{
+                        li{
+                            i{
+                                font-size: 5rem;
+                                h5{
+                                    font-size: 0.9rem;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    .bg-foto{
+        h2{
+            padding: 4rem 2rem;
+        }
+    }
+
+    .contenido-flex{
+        .contacto{
+                .formulario{
+                        .grid-form{
+                            h3{
+                                padding-top: 0;
+                            }
+                            padding: 2rem;
+                            height: 100%;
+                            }
+                        }
+                .acordion{
+                        .accordion{
+                            height: 100%;
+                                }
+                        }
+                }
+                
+        }
+}
+
+@media screen and (max-width: 480px) {
+    .html{
+        max-width: 480px;
+    }
+
+    body{
+        max-width: 480px;
+    }
+
+    .logo-imagen{
+        margin:inherit;
+        
+    }
+
+    .top{
+        .top-content{
+            width: 100%;
+            font-size: 0.85rem;
+            h1{
+                font-size: 1.35rem;
+
+            }
+            .top-logo{
+                margin-top: 20px;
+                width: 225px;
+            }
+            a{
+                .scroll{
+                    width: 1.75rem;
+                }
+            }
+        }
+    } 
+
+    .tarjeta-grid{
+        grid-template-columns: 1fr ;
+        grid-template-rows: repeat(6 1fr) ;
+        grid-template-areas: 
+        "t1"
+        "t2"
+        "t3"
+        "t4"
+        "t5"
+        "t6"
+        ;
+        align-items: center;
+        justify-content: center;
+        row-gap: 2rem;
+        flex: 1;
+        .ver{
+            margin: inherit;
+            padding: 5px;
+        }
+        .tarjeta{
+            height: 18rem;
+            margin-top: inherit;
+            flex: 1;
+            .linea{
+                justify-content: center;
+                align-items: center;
+            }
+            .titulo-tarjeta{
+                color: #fff;
+                text-align: center;
+                .linea {
+                    h3{  
+                    margin-left:10px ;
+                }
+            }
+            }
+        }
+        .t6{
+            align-items: flex-end;
+            .linea{
+                font-size: inherit;
+            }
+        }
+    }
+
+    .tarjeta-grid{
+        .tarjeta{
+        .linea{
+            h3{
+                font-size: 2rem;
+                flex-direction: row!important;
+            }
+        }
+
+    }
+}
+
+    .formulario{
+        flex-direction: column;
+        .text-form{
+            font-size: 1rem;
+            padding-bottom: 1rem;
+            margin-left: inherit;
+            width: 100%;
+        }
+        form{
+            .caja-formulario{
+                width: 25rem;
+                margin-right:inherit;
+                .grid-form{
+                    grid-template-areas:
+                    "nombre     consulta"
+                    "email      consulta"
+                    "telefono   consulta "
+                    "tcons      enviar"
+                    ;
+                    row-gap: 5px;
+                    .form-item {
+                            input,
+                            select,
+                            textarea{
+                            padding: 0.25rem;
+                            border-radius: 5px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .tarjeta-productos{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .tarjeta-servicios{
+        display: flex;
+        flex-direction: column;
+        gap: 1rems;
+        border-radius: inherit;
+    }
+
+    .pie{
+        .grid-pie{
+            .row{
+                padding-bottom: 10px !important;
+                .col-lg-4{
+                    iframe{
+                        @include anchoAlto (300px, 200px);
+                    }
+                }
+                .leyenda{
+                    text-align: center !important;
+                    padding-bottom: 10px ;
+                    h3{
+                        font-size: 1.5rem;
+                    }
+                    p{
+                        font-size: 1.05rem;
+                        &:last-child{
+                            margin-bottom: none !important;
+                        }
+                        
+                    }
+                }
+                .col-lg-12{
+                    .redes-pie{
+                        padding-top: 10px;
+                        flex-direction: column;
+                        li{
+                            i{
+                                font-size: 7rem;
+                                h5{
+                                    font-size: 1.2rem;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .bg-foto{
+        h2{
+            padding: 3.5rem 1rem;
+            line-height: 3rem;
+        }
+    }
+
+}
