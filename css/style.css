@@ -1105,3 +1105,27 @@ button, input, select, textarea {
 
 
 }
+/*
+#timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .event {
+    position: relative;
+    margin: 20px 0;
+    padding-left: 60px;
+  }
+  
+  .date {
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-weight: bold;
+  }
+  
+  .description {
+    font-size: 18px;
+  }
+  */
