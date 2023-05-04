@@ -1106,9 +1106,11 @@ button, input, select, textarea {
 
 }
     
+          /*CHAT*/
+
   #chat {
     width: 500px;
-    margin: 110px;
+    margin: auto;
     background-color: #c7d9ec;
     border: 5px solid #0e1070;
     padding: 5px;
