@@ -10,18 +10,33 @@
 }
 
 body {
-  background: #EC610B;
+  
   display: flex;
   min-height: 100vh;
+  background-image: url(../img/vete-desenfocada.jpg);
+
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+        background-position: center center;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+      margin:0;
+      font-family: 'Roboto Condensed', sans-serif;
+
 }
 
 form {
+  
   margin: auto;
   width: 50%;
   max-width: 500px;
   background: #F3F3F3;
   padding: 20px;
   border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 40px;
+
 }
 
 h2 {

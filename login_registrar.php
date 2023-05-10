@@ -18,7 +18,7 @@ include("conexion.php");
 
 $nombre = $_POST["usuario"];
 $pass   = $_POST["pass"];
-
+$email =$_POST["email"];
 //Login
 if(isset($_POST["btningresar"]))
 {
@@ -27,21 +27,21 @@ if(isset($_POST["btningresar"]))
 	
 	if($nr==1)
 	{
-		echo "<script> alert('Bienvenido $nombre'); window.location='principal.html' </script>";
+		echo "<script> window.location='index.html' </script>";
 	}else
 	{
-		echo "<script> alert('Usuario no existe'); window.location='index.html' </script>";
+		echo "<script> alert('Este usuario no existe'); window.location='login.html' </script>";
 	}
 }
 
 //Registrar
 if(isset($_POST["btnregistrar"]))
 {
-	$sqlgrabar = "INSERT INTO login(usuario,password) values ('$nombre','$pass')";
+	$sqlgrabar = "INSERT INTO login(usuario,password,email) values ('$nombre','$pass','$email')";
 	
 	if(mysqli_query($conn,$sqlgrabar))
 	{
-		echo "<script> alert('Usuario registrado con exito: $nombre'); window.location='index.html' </script>";
+		echo "<script> alert('Usuario registrado con exito: $nombre'); window.location='login.html' </script>";
 	}else 
 	{
 		echo "Error: ".$sql."<br>".mysql_error($conn);
