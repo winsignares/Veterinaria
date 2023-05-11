@@ -8,7 +8,7 @@ usuario y contraseña.
  registrar.html       -> Nuevo usuario           -> (index.html) Login
 
 El login tendrá la opción para registrar.
-Usar "estilos.css" en el ejercicio.
+Usar "login.css".
 
 -->
 
@@ -18,6 +18,7 @@ include("conexion.php");
 
 $nombre = $_POST["usuario"];
 $pass   = $_POST["pass"];
+$email = $_POST["email"]
 
 //Login
 if(isset($_POST["btningresar"]))
