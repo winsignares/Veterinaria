@@ -1,11 +1,11 @@
 <!--
-Crear un login y una página para registrar a un nuevo usuario con los siguientes datos:
+Crearé un login y una página para registrar a un nuevo usuario con los siguientes datos:
 usuario y contraseña.
 
 
-(index.html) Login 	  -> Si el usuario existe 	 -> principal.html
-(index.html) Login    -> Si el usuario no existe -> (index.html) Login
- registrar.html       -> Nuevo usuario           -> (index.html) Login
+(login.html) Login 	  -> Si el usuario existe 	 -> ./index.html
+(login.html) Login    -> Si el usuario no existe -> (login.html) Login
+ registrar.html       -> Nuevo usuario           -> (login.html) Login
 
 El login tendrá la opción para registrar.
 Usar "estilos.css" en el ejercicio.
