@@ -44,4 +44,18 @@
         </div>
     </div>
 </div>
+
+{% if error_message %}
+<div class="alert alert-danger" role="alert">
+    {{ error_message }}
+</div>
+{% endif %}
+{% if success_message %}
+<div class="alert alert-success" role="alert">
+    {{ success_message }}
+</div>
+{% endif %}
+
+
+
 {% endblock %}

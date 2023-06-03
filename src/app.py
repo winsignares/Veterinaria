@@ -9,7 +9,7 @@ db = mysql.connector.connect(
     host="localhost",
     user="root",
     password="",
-    database="prueba"
+    database="baño"
 )
 
 # Creación de la tabla de usuarios al iniciar la aplicación
@@ -23,6 +23,11 @@ cursor.execute("""
 """)
 db.commit()
 
+
+
+# ESTAS SON LAS RUTAS
+
+# ESTA ES LA RUTA COMPLETA PARA EL LOGIN
 
 @app.route("/")
 def home():
@@ -43,13 +48,17 @@ def login():
         if user:
             # Si el usuario existe en la base de datos, iniciar sesión y redirigir al perfil
             session["user_id"] = user[0]  # Almacenar el ID del usuario en la sesión
-            return redirect(url_for("profile"))
+            return redirect(url_for("inicio"))
         else:
             # Si el usuario no existe o las credenciales son incorrectas, mostrar mensaje de error
             error_message = "Correo electrónico o contraseña incorrectos"
             return render_template("login.html", error_message=error_message)
     
     return render_template("login.html")
+
+# HASTA AQUÍ ES LA RUTA COMPLETA PARA EL LOGIN
+
+# ESTA ES LA RUTA COMPLETA PARA EL REGISTRO DEL USUARIO
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -62,16 +71,30 @@ def register():
         cursor.execute("INSERT INTO users (email, password) VALUES (%s, %s)", (email, password))
         db.commit()
         
-        # Después de registrar al nuevo usuario, iniciar sesión y redirigir al perfil
-        session["user_id"] = cursor.lastrowid  # Almacenar el ID del nuevo usuario en la sesión
-        return redirect(url_for("profile"))
+        # # Después de registrar al nuevo usuario, redirigir al inicio de sesión
+        # return redirect(url_for("login"))
+        
+        # Mostrar mensaje de éxito
+        success_message = "Usuario registrado exitosamente"
+        return render_template("register.html", success_message=success_message)
+    else:
+            # El registro no fue exitoso
+            error_message = "No se pudo registrar el usuario"
+            return render_template("register.html", error_message=error_message)
     
-    return render_template("register.html")
 
 
-@app.route("/profile")
+# HASTA AQUÍ ES LA RUTA COMPLETA PARA EL REGISTRO DEL USUARIO
 
-def profile():
+# ESTAS SON LAS RUTAS COMPLEMENTARIAS DE LA PAGINA BAÑO HUELLAS
+
+
+# Esta es la ruta para verificar si el usuario existe
+
+
+@app.route("/inicio")
+
+def inicio():
     # Verificar si hay un usuario autenticado en la sesión
     if "user_id" in session:
         user_id = session["user_id"]
@@ -89,6 +112,8 @@ def profile():
     # Si no hay un usuario autenticado en la sesión, redirigir al inicio de sesión
     return redirect(url_for("login"))
 
+
+# Hasta aquí es la ruta para verificar si el usuario existe
 
 
 # Estas son las rutas de las tarjetas
@@ -113,6 +138,11 @@ def logout():
     session.pop("user_id", None)
     return redirect(url_for("login"))
 
+
+# HASTA AQUÍ LLEGAN LAS RUTAS
+
+
+# INCIAR SERVIDOR
 
 if __name__ == "__main__":
     app.run()
