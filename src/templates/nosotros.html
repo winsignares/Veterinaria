@@ -1,0 +1,156 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+  
+  <!-- Este es el navbar -->
+      <header>
+        <nav class="navbar">
+            <div class="navbar-logo">
+                <img src="../img/vet.png" alt="Logo" class="logo">
+            </div>
+            <div class="navbar-title">
+                <h1><b>Baño Huellas</b></h1>
+            </div>
+
+            <div class="navbar-buttons">
+
+                <button class="btn btn-primary rounded-pill me-2" onclick="window.location.href = 'index.html'">Inicio</button>
+
+                <button class="btn btn-primary rounded-pill" onclick="viewUserProfile()">Perfil</button>
+                <button class="btn btn-primary rounded-pill" onclick="logout()">Cerrar sesión</button>
+                
+            </div>
+
+        </nav>
+    </header>
+    <!-- Hasta aquí llega el Navbar -->
+
+
+    <section data-aos="fade-right" data-aos-duration="1500" class="titulo-pagina container-fluid">
+        <div class="container align-content-center justify-content-center ">
+          <h2>Nosotros</h2>
+        </div>
+      </section>
+
+    <section class="contenido-flex-nos">
+        <section class="container-xxl">
+            <div class="nosotros"> 
+                <div class="tarjeta-nosotros">
+                    <div class="row">
+                        <div class="col-md-6 imagen" data-aos="fade-right">
+                            <img class="img-nos img-nosotros-a " src="../img/vet.png" alt="vet">
+                         </div>
+                         <div class="col-md-6 linea-a d-flex align-content-center justify-content-center" data-aos="fade-left">
+                           <h3 class="titulo-nosotros">Desde 2023 nos encontramos en Malambo, brindándole atención a miles de perros y gatos Malamberos.</h3>
+                         </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 imagen order-md-last" data-aos="fade-left">
+                            <img class="img-nos img-nosotros-b" src="../img/image7.jpeg" alt="Consultorio">
+                         </div>
+                         <div class="col-md-6 linea-b d-flex align-content-center justify-content-center" data-aos="fade-right">
+                            <h3 class="titulo-nosotros">Contamos con un consultorio equipado para brindarle la mejor atención a tu amigo peludo.</h3>
+                         </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 imagen" data-aos="fade-right">
+                            <img class="img-nos img-nosotros-a" src="../img/medicaments.jpg" alt="Frente veterinaria">
+                         </div>
+                         <div class="col-md-6 d-flex align-content-center justify-content-center" data-aos="fade-left">
+                           <h3 class="titulo-nosotros">Nos enfocamos en tener la mayor variedad y cantidad de fármacos veterinarios.</h3>
+                         </div>
+                    </div>
+                     
+                     <div class="row">
+                        <div class="col-md-6 imagen  order-md-last" data-aos="fade-left">
+                            <img class="img-nos img-nosotros-b" src="../img/Spa vet.jpg" alt="Spa">
+                         </div>
+                         <div class="col-md-6 d-flex align-content-center justify-content-center" data-aos="fade-right">
+                            <h3 class="titulo-nosotros">Lo mejor para el descanso y estilo para tu mascota.</h3>
+                         </div>
+                     </div>
+                </div> 
+            </div>       
+        </section>
+    </section>
+
+    <section class="container text-center">
+        <div class="text-vet col-md-6 d-flex flex-column text-center">
+            <h2>
+                Más de un mes de experiencia
+            </h2>
+        </div>
+    </section>
+
+
+<!-- Este es el chat -->
+
+<button class="chat-button" onclick="openChat()">Chat</button>
+<div id="chatContainer" class="chat-container">
+    <div class="chat-header">
+        <center><h3>Chat</h3></center>
+        <button class="close-button" onclick="closeChat()">X</button>
+    </div>
+
+    <div id="chatBody" class="chat-body">
+        <div class="chat-message">
+            <p>Bienvenido al chat</p>
+        </div>
+    </div>
+    <div class="chat-actions">
+        <input id="messageInput" class="chat-input" type="text" placeholder="Escribe un mensaje...">
+        <button onclick="sendMessage()">Enviar</button>
+    </div>
+</div>
+
+<!-- Final del chat -->
+
+    <footer class="pie container-fluid pt-4" data-aos="fade-up">
+        <div class="grid-pie container text-center">
+          <div class="row pb-5">
+            <div class="col-lg-4 pb-3 pt-3 text-center">
+              <a class="logo-pie " href="./index.html"><img class="logo-imagen" src="../img/vet.png" alt="vet"></a>
+            </div>
+            <div class="col-lg-4 pt-3 pb-3 justify-content-center text-center align-content-center">
+              <iframe class="map-form col" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.3734989816655!2d-74.77849338523079!3d10.857813992256815!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e6011fb9d1ab09b%3A0x2a9b0621657e4e0a!2sVeterinaria%20Huellas%20-%20Veterinario%20a%20domicilio!5e0!3m2!1sen!2sco!4v1622547241069!5m2!1sen!2sco" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <div class="col-lg-4 pt-3 pb-3 text-center">
+              <div class="leyenda ">
+                  <h3>Dirección</h3>
+                  <p>Concorde #1234, Malambo</p>
+                  <h3>Horarios de atención</h3>
+                  <p>Lunes a Viernes: 8:00 AM - 6:00 PM</p>
+                  <p>Sábados y Domingos: 9:00 AM - 1:00 PM</p>
+              </div>
+            </div>
+          </div>
+          <div class="row pt-4">
+            <div class="col-12 redes">
+              <ul class="redes-pie">
+                  <li class="redes-item-pie"><a target="_blank" href="#"><i class="bi bi-facebook"></i>Facebook</a></li>
+                  <li class="redes-item-pie"><a target="_blank" href="#"><i class="bi bi-twitter"></i>Twitter</a></li>
+                  <li class="redes-item-pie"><a target="_blank" href="#"><i class="bi bi-instagram"></i>Instagram</a></li>
+                  <li class="redes-item-pie"><a target="_blank" href="#"><i class="bi bi-youtube"></i>YouTube</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      {% endblock %}
+
+      {% block scripts %}
+
+      {% comment %} Aquí van los links de Scripts de internet {% endcomment %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+
+
+    {% endblock %}
+

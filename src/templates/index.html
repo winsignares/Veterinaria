@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baño Huellas - Inicio</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Font+Name&display=swap">
+
+
+
+    <!-- Estos son los estilos del index -->
+
+
+    <!-- Este es el estilo principal -->
+
+    <style 1>
+
+        body {
+            background-image: url("{{ url_for('static', filename='img/textura-pared-estuco-azul-marino-relieve-decorativo-abstracto-grunge-fondo-color-rugoso-gran-angular.jpg') }}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            border-radius: 10px;
+        }
+
+        header {
+            background-color: #bce0ba;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: 50px;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .card p {
+            color: #000;
+            font-family: 'Font Name', sans-serif;
+        }
+
+        .card-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .card {
+            width: 300px;
+            margin: 0 10px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f5f5f5;
+            color: #000;
+            font-family: 'Font Name', sans-serif;
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card h3 {
+            margin: 0;
+            color: #000;
+            font-family: 'Font Name', sans-serif;
+        }
+
+        .card-image {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .card-button {
+            display: block;
+            text-align: center;
+            margin-top: auto;
+            background-color: blue;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-family: 'Font Name', sans-serif;
+        
+        }
+
+
+       
+    </style>
+
+    <!-- Hasta aquí llega el estilo principal -->
+
+
+    <!-- Este es el estilo del Navbar -->
+    <style 2>
+
+        header {
+            background-color: #bce0ba;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: 50px;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-logo {
+            margin-right: 10px;
+        }
+
+        .logo {
+            width: 50px;
+            height: auto;
+        }
+
+        .navbar-title h1 {
+            margin: 0;
+            font-family: 'Font Name', sans-serif;
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .navbar-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Estilos para los botones de inicio y perfil */
+        .navbar-buttons button {
+            font-family: 'Font Name', sans-serif;
+            font-size: 14px;
+            padding: 8px 16px;
+            border-radius: 50px;
+            color: rgb(244, 247, 247);
+            background-color: rgb(61, 187, 44);
+            margin-left: 70px;
+            cursor: pointer;
+        }
+
+    </style>
+    <!-- Hasta aquíllega el esteilo del navbar -->
+
+    <!-- Este es el estilo del chat -->
+    <style 3>
+
+        .chat-message.sent p {
+            margin-left: auto;
+            background-color: #3dbb2c;
+            color: #fff;
+        }
+
+        .chat-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            font-size: 20px;
+            font-family: 'Font Name', sans-serif;
+        }
+
+        .chat-container {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 300px;
+            max-height: 500px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            overflow-y: auto;
+            font-family: 'Font Name', sans-serif;
+        }
+
+        .chat-header {
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            font-family: 'Font Name', sans-serif;
+        }
+
+
+        .chat-header h3 {
+            flex-grow: 1;
+            margin: 0;
+        }
+
+        .chat-actions {
+            position: sticky;
+            bottom: 0;
+            z-index: 1;
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-top: 1px solid #ccc;
+            font-family: 'Font Name', sans-serif;
+        }
+        .chat-actions button {
+            padding: 8px 16px;
+            border-radius: 50px;
+            color: #f4f7f7;
+            background-color: #3dbb2c;
+            border: none;
+            cursor: pointer;
+            font-family: 'Font Name', sans-serif;
+        }
+        .close-button {
+            margin-left: auto;
+            padding: 0;
+            border: none;
+            background: none;
+            color: #000;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+    </style>
+    <!-- Hasta aquí llega el estilo del chat -->
+
+    <!-- Hasta aquí llegan los estilos del index -->
+
+    <!-- Estos son los codigos JS del index -->
+
+<!-- Este es el JS del chat -->
+    <script 1>
+        function openChat() {
+            var chatContainer = document.getElementById("chatContainer");
+            chatContainer.style.display = "block";
+        }
+
+        function closeChat() {
+            var chatContainer = document.getElementById("chatContainer");
+            chatContainer.style.display = "none";
+        }
+
+        function sendMessage(event) {
+            var messageInput = document.getElementById("messageInput");
+            var message = messageInput.value;
+
+            if (message !== "") {
+                var chatBody = document.getElementById("chatBody");
+                var newMessage = document.createElement("div");
+                newMessage.className = "chat-message sent"; // Agregar la clase "sent" al mensaje enviado
+                var messageText = document.createElement("p");
+                messageText.textContent = message;
+                newMessage.appendChild(messageText);
+                chatBody.appendChild(newMessage);
+                messageInput.value = "";
+
+                // Respuesta automática
+                setTimeout(function() {
+                    var response = "Gracias por tu mensaje. Nos pondremos en contacto contigo pronto.";
+                    var responseMessage = document.createElement("div");
+                    responseMessage.className = "chat-message";
+                    var responseText = document.createElement("p");
+                    responseText.textContent = response;
+                    responseMessage.appendChild(responseText);
+                    chatBody.appendChild(responseMessage);
+                }, 1000);
+            }
+
+            // Evitar el envío del formulario al presionar Enter
+            event.preventDefault();
+        }
+
+    </script>
+<!-- Final del JS del chat -->
+
+    <!-- Hasta aquí llegan los codigos JS del index -->
+
+</head>
+
+<body>
+
+    <header>
+        <div class="navbar">
+            <div class="navbar-logo">
+                <img class="logo" src="{{ url_for('static', filename='img/vet.png') }}" alt="Logo">
+            </div>
+            <div class="navbar-title">
+                <h1>Baño Huellas</h1>
+            </div>
+            <div class="navbar-buttons">
+                <button class="btn btn-primary rounded-pill me-2" onclick="window.location.href = 'index.html'">Inicio</button>
+
+                <a class="btn btn-primary rounded-pill" href="{{ url_for('logout') }}">Cerrar sesión</a>
+
+            
+            </div>
+        </div>
+        <button class="chat-button" onclick="openChat()">Chat</button>
+    </header>
+
+
+    <!-- Estas son las tarjetas -->
+    <main>
+        <div class="card-container">
+            <div class="card">
+                <img class="card-image" src="{{ url_for('static', filename='img/vet.png') }}" alt="Servicio 1">
+    
+                <h3>Nosotros</h3>
+                <p>Conoce todo sobre Baño Huellas</p>
+                <a class="card-button" href="{{ url_for('nosotros') }}">Ver más</a>
+            </div>
+            <div class="card">
+                <img class="card-image" src="{{ url_for('static', filename='img/Spavet.jpg') }}" alt="Servicio 2">
+    
+                <h3>Servicios</h3>
+                <p>Aquí encontrarás los paquetes de servicios</p>
+                <a class="card-button" href="{{ url_for('Spa') }}">Ver más</a>
+            </div>
+            <div class="card">
+                <img class="card-image" src="{{ url_for('static', filename='img/340.jpg') }}" alt="Servicio 3">
+    
+                <h3>Contacto</h3>
+                <p>Contáctanos para saber tu opinión</p>
+                <a class="card-button" href="{{ url_for('contacto') }}">Ver más</a>
+            </div>
+        </div>
+    </main>
+    
+
+    <!-- Hasta quí llegan las tarjetas -->
+
+    <!-- Este es el chat -->
+
+    <div id="chatContainer" class="chat-container">
+        <div class="chat-header">
+            <center><h3>Chat</h3></center>
+            <button class="close-button" onclick="closeChat()">X</button>
+        </div>
+
+        <div id="chatBody" class="chat-body">
+            <div class="chat-message">
+                <p>Bienvenido al chat</p>
+            </div>
+        </div>
+        <div class="chat-actions">
+            <input id="messageInput" class="chat-input" type="text" placeholder="Escribe un mensaje...">
+            <button onclick="sendMessage()">Enviar</button>
+        </div>
+    </div>
+    
+    <!-- Final del chat -->
+
+    <!-- Estos son los JS del index -->
+
+
+    <!-- Este es el Js del Navbar -->
+
+
+    <script>
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+
+    </script>
+
+
+    <!-- Este es el JS del chat -->
+    <script>
+        
+        window.addEventListener("DOMContentLoaded", function() {
+            var chatButton = document.querySelector(".chat-button");
+            chatButton.style.display = "block";
+            
+        }) ;
+
+    </script>
+
+    <!-- Hasta aquí llega el JS del chat -->
+
+
+    <!-- Este  es el Js de las tarjetas -->
+
+    <script>
+        const cards = document.querySelectorAll('.card');
+
+        cards.forEach(card => {
+            card.addEventListener('mouseover', function() {
+                this.style.transform = 'scale(1.05)';
+            });
+
+            card.addEventListener('mouseout', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+
+    <!-- Hasta aquí llega el JS de las tarjetas -->
+
+    
+    <!-- Hasta aquí llegan los JS del index -->
+
+
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+import mysql.connector
+
+class MySQLDatabase:
+    def __init__(self, host, user, password, database):
+        self.host = host
+        self.user = user
+        self.password = password
+        self.database = database
+
+    def get_connection(self):
+        return mysql.connector.connect(
+            host=self.host,
+            user=self.user,
+            password=self.password,
+            database=self.database
+        )
+
+    def create_table(self):
+        connection = self.get_connection()
+        cursor = connection.cursor()
+
+        # Define la sentencia SQL para crear la tabla
+        create_table_query = '''
+            CREATE TABLE IF NOT EXISTS users (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                email VARCHAR(255) NOT NULL,
+                password VARCHAR(255) NOT NULL
+            )
+        '''
+
+        # Ejecuta la sentencia SQL para crear la tabla
+        cursor.execute(create_table_query)
+        connection.commit()
+
+        cursor.close()
+        connection.close()

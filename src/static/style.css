@@ -1,0 +1,343 @@
+
+/* Aquí empieza el CSS de la pestaña principal, donde aparece el logo */
+        .top {
+            background-image: url('../img/vete-desenfocada.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh; /* Establece la altura del div al 100% del viewport */
+            padding: 20px;
+            margin: 0%;
+          }
+        
+          .top-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+          }
+          
+          .top-logo {
+            width: 400px;
+            height: 400px;
+            margin-bottom: 20px;
+          }
+        
+        h1 {
+        font-size: 24px;
+        margin-top: 20px;
+        color: #fffefe;
+        }
+        
+        .scroll {
+        width: 40px;
+        height: 40px;
+        margin-top: 20px;
+        }
+        
+        .animate__shakeY {
+        animation: shakeY 5s infinite;
+        }
+        
+        @keyframes shakeY {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        10%,
+        30%,
+        50%,
+        70%,
+        90% {
+          transform: translateY(-5px);
+        }
+        20%,
+        40%,
+        60%,
+        80% {
+          transform: translateY(5px);
+        }
+
+
+    }
+
+    /* Aquí termina el estilo de la pestaña principal */
+
+    /* Desde aquí empiezan mis estilos, corresponden a toda la pestaña "Nosotros" */
+
+  
+        
+        
+        .titulo-pagina {
+            background-color: #f8f9fa;
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        .titulo-pagina h2 {
+            margin-bottom: 0;
+            font-weight: bold;
+            font-size: 30px;
+        }
+
+        .contenido-flex-nos {
+            padding: 40px 0;
+        }
+
+        .tarjeta-nosotros {
+            background-color: #537ba5;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .imagen {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .img-nos {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .linea-a, .linea-b {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .titulo-nosotros {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .text-vet {
+            background-color: #f8f9fa;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .text-vet h2 {
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .pie {
+            background-color: #333;
+            color: #fff;
+            padding: 30px 0;
+            font-size: 14px;
+        }
+
+        .logo-pie img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .map-form {
+            width: 100%;
+            height: 200px;
+            border: none;
+        }
+
+        .leyenda h3 {
+            margin-bottom: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .leyenda p {
+            margin-bottom: 5px;
+        }
+
+        .redes-pie {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .redes-item-pie {
+            margin-right: 10px;
+        }
+
+        .redes-item-pie a {
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .redes-item-pie i {
+            margin-right: 5px;
+        }
+  
+
+/* Aquí terminan mis estilos, corresponden a toda la pestaña "Nosotros" */
+
+
+/* Este es el estilo del Navbar */
+
+header {
+  background-color: #bce0ba;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 50px;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo {
+  margin-right: 10px;
+}
+
+.logo {
+  width: 50px;
+  height: auto;
+}
+
+.navbar-title h1 {
+  margin: 0;
+  font-family: 'Font Name', sans-serif;
+  text-align: center;
+  flex-grow: 1;
+}
+
+.navbar-buttons {
+  display: flex;
+  gap: 10px;
+
+}
+
+/* Estilos para los botones de inicio y perfil */
+.navbar-buttons button {
+  font-family: 'Font Name', sans-serif;
+  font-size: 14px;
+  padding: 8px 16px;
+  border-radius: 50px;
+  color: rgb(244, 247, 247);
+  background-color: rgb(61, 187, 44);
+  margin-left: 70px;
+
+}
+
+/* Hasta aquí llega el estilo del navbar */
+
+ /* Este es el estilo del chat */
+
+
+        .chat-message.sent p {
+            margin-left: auto;
+            background-color: #3dbb2c;
+            color: #fff;
+        }
+
+        .chat-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            font-size: 20px;
+            font-family: 'Font Name', sans-serif;
+        }
+
+        .chat-container {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 300px;
+            max-height: 500px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            overflow-y: auto;
+            font-family: 'Font Name', sans-serif;
+        }
+
+        .chat-header {
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            font-family: 'Font Name', sans-serif;
+        }
+
+
+        .chat-header h3 {
+            flex-grow: 1;
+            margin: 0;
+        }
+
+        .chat-actions {
+            position: sticky;
+            bottom: 0;
+            z-index: 1;
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-top: 1px solid #ccc;
+            font-family: 'Font Name', sans-serif;
+        }
+        .chat-actions button {
+            padding: 8px 16px;
+            border-radius: 50px;
+            color: #f4f7f7;
+            background-color: #3dbb2c;
+            border: none;
+            cursor: pointer;
+            font-family: 'Font Name', sans-serif;
+        }
+        .close-button {
+            margin-left: auto;
+            padding: 0;
+            border: none;
+            background: none;
+            color: #000;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+    /* Hasta aquí llega el estilo del chat  */
+
+    /* Este es el estilo del formulario y del mapa de Malambo */
+  
+    .formulario {
+      text-align: left; /* Alinea el formulario a la izquierda */
+      margin-top: 60px; /* Ajuste del margen superior */
+      border-radius: 50px;
+    }
+    
+    .informacion-contacto {
+      text-align: left; /* Alinea la información de contacto a la izquierda */
+      margin-top: 60px; /* Ajuste del margen superior */
+    }
+
+    .boton-mapa {
+      margin-top: 20px; /* Ajuste del margen superior */
+    }
+  
+    /* Hasta aquí llega el estilo del formulario y del mapa de Malambo */
