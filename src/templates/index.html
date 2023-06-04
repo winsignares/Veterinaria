@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Baño Huellas - Inicio</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Font+Name&display=swap">
+    <script src="https://sdk.twilio.com/js/client/v1.18/twilio.min.js"></script>
+
 
 
 
@@ -186,6 +188,7 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
             overflow-y: auto;
             font-family: 'Font Name', sans-serif;
+            display: none;
         }
 
         .chat-header {
@@ -234,6 +237,8 @@
             cursor: pointer;
         }
 
+        
+
     </style>
     <!-- Hasta aquí llega el estilo del chat -->
 
@@ -242,55 +247,93 @@
     <!-- Estos son los codigos JS del index -->
 
 <!-- Este es el JS del chat -->
-    <script 1>
-        function openChat() {
-            var chatContainer = document.getElementById("chatContainer");
-            chatContainer.style.display = "block";
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Agrega la referencia a jQuery si aún no está presente -->
+
+<script>
+
+    const twilio = require('twilio');
+
+
+    function openChat() {
+        var chatContainer = document.getElementById("chatContainer");
+        chatContainer.style.display = "block";
+    }
+
+    function closeChat() {
+        var chatContainer = document.getElementById("chatContainer");
+        chatContainer.style.display = "none";
+    }
+
+    function sendMessage(event) {
+        var messageInput = document.getElementById("messageInput");
+        var message = messageInput.value;
+
+        if (message !== "") {
+            var chatBody = document.getElementById("chatBody");
+            var newMessage = document.createElement("div");
+            newMessage.className = "chat-message sent";
+            var messageText = document.createElement("p");
+            messageText.textContent = message;
+            newMessage.appendChild(messageText);
+            chatBody.appendChild(newMessage);
+            messageInput.value = "";
+
+            // Respuesta automática
+            setTimeout(function() {
+                var response = "Gracias por tu mensaje. Nos pondremos en contacto contigo pronto.";
+                var responseMessage = document.createElement("div");
+                responseMessage.className = "chat-message";
+                var responseText = document.createElement("p");
+                responseText.textContent = response;
+                responseMessage.appendChild(responseText);
+                chatBody.appendChild(responseMessage);
+            }, 1000);
         }
 
-        function closeChat() {
-            var chatContainer = document.getElementById("chatContainer");
-            chatContainer.style.display = "none";
+            // Enviar mensaje utilizando Twilio
+            $.ajax({
+                url: "https://api.twilio.com/2010-04-01/Accounts/{ACbf07f67dac81ab4acfc232dccfd7d6ee}/Messages.json", // Reemplaza con el endpoint de la API de Twilio
+                method: "POST",
+                data: {
+                    body: message,
+                    to: "+573186469410", // Reemplaza con el número de teléfono de destino
+                    from: "+13613227904" // Reemplaza con tu número de teléfono de Twilio
+                },
+                headers: {
+                    "Authorization": "Basic " + btoa("ACbf07f67dac81ab4acfc232dccfd7d6ee:5127cebcf465ec27f0cdbb611ded27fa") // Reemplaza con tus credenciales de API de Twilio
+                },
+                success: function(response) {
+                    // Respuesta automática
+                    setTimeout(function() {
+                        var responseMessage = document.createElement("div");
+                        responseMessage.className = "chat-message";
+                        var responseText = document.createElement("p");
+                        responseText.textContent = "Gracias por tu mensaje. Nos pondremos en contacto contigo pronto.";
+                        responseMessage.appendChild(responseText);
+                        chatBody.appendChild(responseMessage);
+                    }, 1000);
+                }
+            });
         }
 
-        function sendMessage(event) {
-            var messageInput = document.getElementById("messageInput");
-            var message = messageInput.value;
+        //Al abrir la pestaña no estará abierto el chat
+        window.addEventListener("DOMContentLoaded", function() {
+            var chatButton = document.querySelector(".chat-button");
+            chatButton.style.display = "block";
+            
+        }) ;
 
-            if (message !== "") {
-                var chatBody = document.getElementById("chatBody");
-                var newMessage = document.createElement("div");
-                newMessage.className = "chat-message sent"; // Agregar la clase "sent" al mensaje enviado
-                var messageText = document.createElement("p");
-                messageText.textContent = message;
-                newMessage.appendChild(messageText);
-                chatBody.appendChild(newMessage);
-                messageInput.value = "";
+    
+</script>
 
-                // Respuesta automática
-                setTimeout(function() {
-                    var response = "Gracias por tu mensaje. Nos pondremos en contacto contigo pronto.";
-                    var responseMessage = document.createElement("div");
-                    responseMessage.className = "chat-message";
-                    var responseText = document.createElement("p");
-                    responseText.textContent = response;
-                    responseMessage.appendChild(responseText);
-                    chatBody.appendChild(responseMessage);
-                }, 1000);
-            }
-
-            // Evitar el envío del formulario al presionar Enter
-            event.preventDefault();
-        }
-
-    </script>
+   
 <!-- Final del JS del chat -->
 
     <!-- Hasta aquí llegan los codigos JS del index -->
 
 </head>
 
-<body>
+<body onload="checkLogin()">
 
     <header>
         <div class="navbar">
@@ -301,14 +344,17 @@
                 <h1>Baño Huellas</h1>
             </div>
             <div class="navbar-buttons">
-                <button class="btn btn-primary rounded-pill me-2" onclick="window.location.href = 'index.html'">Inicio</button>
+                <button class="btn btn-primary rounded-pill me-2" onclick="window.location.href = 'inicio'">Inicio</button>
 
-                <a class="btn btn-primary rounded-pill" href="{{ url_for('logout') }}">Cerrar sesión</a>
+                <div class="navbar-buttons">
+                    <!-- Resto del código del navbar -->
+                    <button class="btn btn-primary rounded-pill" onclick="logout()">Cerrar sesión</button>
+                </div>
 
             
             </div>
         </div>
-        <button class="chat-button" onclick="openChat()">Chat</button>
+        
     </header>
 
 
@@ -323,14 +369,14 @@
                 <a class="card-button" href="{{ url_for('nosotros') }}">Ver más</a>
             </div>
             <div class="card">
-                <img class="card-image" src="{{ url_for('static', filename='img/Spavet.jpg') }}" alt="Servicio 2">
+                <img class="card-image" src="{{ url_for('static', filename='img/petslogo.jpg') }}" alt="Servicio 2">
     
                 <h3>Servicios</h3>
                 <p>Aquí encontrarás los paquetes de servicios</p>
                 <a class="card-button" href="{{ url_for('Spa') }}">Ver más</a>
             </div>
             <div class="card">
-                <img class="card-image" src="{{ url_for('static', filename='img/340.jpg') }}" alt="Servicio 3">
+                <img class="card-image" src="{{ url_for('static', filename='img/vet.png') }}" alt="Servicio 3">
     
                 <h3>Contacto</h3>
                 <p>Contáctanos para saber tu opinión</p>
@@ -343,6 +389,8 @@
     <!-- Hasta quí llegan las tarjetas -->
 
     <!-- Este es el chat -->
+
+    <button class="chat-button" onclick="openChat()">Chat</button>
 
     <div id="chatContainer" class="chat-container">
         <div class="chat-header">
@@ -370,6 +418,7 @@
 
 
     <script>
+
     function scrollToTop() {
         window.scrollTo({
             top: 0,
@@ -378,21 +427,6 @@
     }
 
     </script>
-
-
-    <!-- Este es el JS del chat -->
-    <script>
-        
-        window.addEventListener("DOMContentLoaded", function() {
-            var chatButton = document.querySelector(".chat-button");
-            chatButton.style.display = "block";
-            
-        }) ;
-
-    </script>
-
-    <!-- Hasta aquí llega el JS del chat -->
-
 
     <!-- Este  es el Js de las tarjetas -->
 
@@ -414,6 +448,57 @@
 
     
     <!-- Hasta aquí llegan los JS del index -->
+
+    <script>
+
+
+        function login() {
+            // Realizar el proceso de inicio de sesión
+            
+            // Limpiar los campos de inicio de sesión
+  document.getElementById("loginForm").reset();
+  
+  // Redireccionar al usuario al index
+  window.location.href = "/index.html"; // Reemplaza "/index.html" con la ruta correcta a tu página index
+}
+
+
+function checkLogin() {
+    if (localStorage.getItem("isLoggedIn")) {
+      window.location.href = "index.html"; // Redirigir a la página index
+    }
+    else {
+      // Agregar una nueva entrada al historial sin cambiar la URL
+      history.replaceState(null, null, window.location.href);
+      history.pushState(null, null, window.location.href);
+      window.onpopstate = function(event) {
+        history.go(1);
+      };
+    }
+  }
+
+  function login() {
+    // Lógica de inicio de sesión aquí
+    localStorage.setItem("isLoggedIn", true);
+  }
+
+
+        function logout() {
+            // Redireccionar al usuario a una página diferente
+            window.location.href = "/logout";
+
+            // Reemplazar la URL actual en el historial del navegador
+         
+            var newUrl = window.location.origin + "/login"; // Cambia "logout-page" por la URL de la página a la que quieres redirigir después de cerrar sesión
+            window.history.pushState({}, '', newUrl);
+
+              // Invalidar el historial
+      history.replaceState(null, document.title, window.location.href);
+    }
+
+        
+
+    </script>
 
 
 </body>

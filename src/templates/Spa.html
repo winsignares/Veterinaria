@@ -97,57 +97,57 @@
 
 
     <!-- Este es el estilo del Navbar -->
-    <style 2>
+<style 2>
 
-        header {
-            background-color: #bce0ba;
-            padding: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-radius: 50px;
-        }
+    header {
+        background-color: #bce0ba;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-radius: 50px;
+    }
 
-        .navbar {
-            display: flex;
-            align-items: center;
-        }
+    .navbar {
+        display: flex;
+        align-items: center;
+    }
 
-        .navbar-logo {
-            margin-right: 10px;
-        }
+    .navbar-logo {
+        margin-right: 10px;
+    }
 
-        .logo {
-            width: 50px;
-            height: auto;
-        }
+    .logo {
+        width: 50px;
+        height: auto;
+    }
 
-        .navbar-title h1 {
-            margin: 0;
-            font-family: 'Font Name', sans-serif;
-            text-align: center;
-            flex-grow: 1;
-        }
+    .navbar-title h1 {
+        margin: 0;
+        font-family: 'Font Name', sans-serif;
+        text-align: center;
+        flex-grow: 1;
+    }
 
-        .navbar-buttons {
-            display: flex;
-            gap: 10px;
-        }
+    .navbar-buttons {
+        display: flex;
+        gap: 10px;
+    }
 
-        /* Estilos para los botones de inicio y perfil */
-        .navbar-buttons button {
-            font-family: 'Font Name', sans-serif;
-            font-size: 14px;
-            padding: 8px 16px;
-            border-radius: 50px;
-            color: rgb(244, 247, 247);
-            background-color: rgb(61, 187, 44);
-            margin-left: 70px;
-            cursor: pointer;
-        }
+    /* Estilos para los botones de inicio y perfil */
+    .navbar-buttons button {
+        font-family: 'Font Name', sans-serif;
+        font-size: 14px;
+        padding: 8px 16px;
+        border-radius: 50px;
+        color: rgb(244, 247, 247);
+        background-color: rgb(61, 187, 44);
+        margin-left: 70px;
+        cursor: pointer;
+    }
 
-    </style>
-    <!-- Hasta aquíllega el esteilo del navbar -->
+</style>
+<!-- Hasta aquíllega el esteilo del navbar -->
 
     <!-- Este es el estilo del chat -->
     <style 3>
@@ -186,6 +186,7 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
             overflow-y: auto;
             font-family: 'Font Name', sans-serif;
+            display: none;
         }
 
         .chat-header {
@@ -234,6 +235,8 @@
             cursor: pointer;
         }
 
+        
+
     </style>
     <!-- Hasta aquí llega el estilo del chat -->
 
@@ -242,49 +245,88 @@
     <!-- Estos son los codigos JS del index -->
 
 <!-- Este es el JS del chat -->
-    <script 1>
-        function openChat() {
-            var chatContainer = document.getElementById("chatContainer");
-            chatContainer.style.display = "block";
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Agrega la referencia a jQuery si aún no está presente -->
+
+<script>
+
+    const twilio = require('twilio');
+
+
+    function openChat() {
+        var chatContainer = document.getElementById("chatContainer");
+        chatContainer.style.display = "block";
+    }
+
+    function closeChat() {
+        var chatContainer = document.getElementById("chatContainer");
+        chatContainer.style.display = "none";
+    }
+
+    function sendMessage(event) {
+        var messageInput = document.getElementById("messageInput");
+        var message = messageInput.value;
+
+        if (message !== "") {
+            var chatBody = document.getElementById("chatBody");
+            var newMessage = document.createElement("div");
+            newMessage.className = "chat-message sent";
+            var messageText = document.createElement("p");
+            messageText.textContent = message;
+            newMessage.appendChild(messageText);
+            chatBody.appendChild(newMessage);
+            messageInput.value = "";
+
+            // Respuesta automática
+            setTimeout(function() {
+                var response = "Gracias por tu mensaje. Nos pondremos en contacto contigo pronto.";
+                var responseMessage = document.createElement("div");
+                responseMessage.className = "chat-message";
+                var responseText = document.createElement("p");
+                responseText.textContent = response;
+                responseMessage.appendChild(responseText);
+                chatBody.appendChild(responseMessage);
+            }, 1000);
         }
 
-        function closeChat() {
-            var chatContainer = document.getElementById("chatContainer");
-            chatContainer.style.display = "none";
+            // Enviar mensaje utilizando Twilio
+            $.ajax({
+                url: "https://api.twilio.com/2010-04-01/Accounts/{ACbf07f67dac81ab4acfc232dccfd7d6ee}/Messages.json", // Reemplaza con el endpoint de la API de Twilio
+                method: "POST",
+                data: {
+                    body: message,
+                    to: "+573186469410", // Reemplaza con el número de teléfono de destino
+                    from: "+13613227904" // Reemplaza con tu número de teléfono de Twilio
+                },
+                headers: {
+                    "Authorization": "Basic " + btoa("ACbf07f67dac81ab4acfc232dccfd7d6ee:5127cebcf465ec27f0cdbb611ded27fa") // Reemplaza con tus credenciales de API de Twilio
+                },
+                success: function(response) {
+                    // Respuesta automática
+                    setTimeout(function() {
+                        var responseMessage = document.createElement("div");
+                        responseMessage.className = "chat-message";
+                        var responseText = document.createElement("p");
+                        responseText.textContent = "Gracias por tu mensaje. Nos pondremos en contacto contigo pronto.";
+                        responseMessage.appendChild(responseText);
+                        chatBody.appendChild(responseMessage);
+                    }, 1000);
+                }
+            });
         }
 
-        function sendMessage(event) {
-            var messageInput = document.getElementById("messageInput");
-            var message = messageInput.value;
+        //Al abrir la pestaña no estará abierto el chat
+        window.addEventListener("DOMContentLoaded", function() {
+            var chatButton = document.querySelector(".chat-button");
+            chatButton.style.display = "block";
+            
+        }) ;
 
-            if (message !== "") {
-                var chatBody = document.getElementById("chatBody");
-                var newMessage = document.createElement("div");
-                newMessage.className = "chat-message sent"; // Agregar la clase "sent" al mensaje enviado
-                var messageText = document.createElement("p");
-                messageText.textContent = message;
-                newMessage.appendChild(messageText);
-                chatBody.appendChild(newMessage);
-                messageInput.value = "";
+    
+</script>
 
-                // Respuesta automática
-                setTimeout(function() {
-                    var response = "Gracias por tu mensaje. Nos pondremos en contacto contigo pronto.";
-                    var responseMessage = document.createElement("div");
-                    responseMessage.className = "chat-message";
-                    var responseText = document.createElement("p");
-                    responseText.textContent = response;
-                    responseMessage.appendChild(responseText);
-                    chatBody.appendChild(responseMessage);
-                }, 1000);
-            }
-
-            // Evitar el envío del formulario al presionar Enter
-            event.preventDefault();
-        }
-
-    </script>
+   
 <!-- Final del JS del chat -->
+
 
     <!-- Hasta aquí llegan los codigos JS del index -->
 
@@ -300,14 +342,18 @@
             <div class="navbar-title">
                 <h1>Baño Huellas</h1>
             </div>
+            <div class="navbar-buttons">
+                <button class="btn btn-primary rounded-pill me-2" onclick="window.location.href = 'inicio'">Inicio</button>
+    
+                <div class="navbar-buttons">
+                    <!-- Resto del código del navbar -->
+                    <button class="btn btn-primary rounded-pill" onclick="logout()">Cerrar sesión</button>
+                </div>
+    
             
-
-                <a class="btn btn-primary rounded-pill" href="{{ url_for('logout') }}">Cerrar sesión</a>
-
-            
-            
+            </div>
         </div>
-        <button class="chat-button" onclick="openChat()">Chat</button>
+        
     </header>
 
 
@@ -315,22 +361,34 @@
     <main>
         <div class="card-container">
             <div class="card">
-                <img class="card-image" src="{{ url_for('static', filename='img/vet.png') }}" alt="Servicio 1">
+                <img class="card-image" src="{{ url_for('static', filename='img/paquetebasicperro.jpg') }}" alt="Servicio 1">
 
                 <h3>Paquete Básico</h3>
                 <p>En este paquete encontrarás <br><li>Baño, secado, masaje.<br><br><center><b>COP $ 20.000</b></center></li></p>
-                <a class="card-button" href="https://checkout.payulatam.com/ppp-web-gateway-payu/">Pagar con PayU</a>
+                <a href="https://biz.payulatam.com/B0f2a962384F074"><img src="https://ecommerce.payulatam.com/img-secure-2015/boton_pagar_mediano.png"></a>
 
             </div>
             
             <div class="card">
-                <img class="card-image" src="{{ url_for('static', filename='img/vet.png') }}" alt="Servicio 3">
+                <img class="card-image" src="{{ url_for('static', filename='img/chihuahua.jpg') }}" alt="Servicio 3">
 
                 <h3>Paquete Premium</h3>
                 <p>En este paquete encontrarás <br><li>Baño, secado, masaje, corte de pelo.<br><br><center><b>COP $ 57.500</b></center></li></p>
-                <a class="card-button" href="https://checkout.payulatam.com/ppp-web-gateway-payu/">Pagar con PayU</a>
+                <a href="https://biz.payulatam.com/B0f2a967BDE8109"><img src="https://ecommerce.payulatam.com/img-secure-2015/boton_pagar_mediano.png"></a>
 
             </div>
+
+
+            <div class="card">
+                <img class="card-image" src="{{ url_for('static', filename='img/gato.jpg') }}" alt="Servicio 2">
+
+                <h3>Galeria</h3>
+                <p>Aquí encontrarás nuestra galeria<br><li>Fotos de primera mano que refleja nuestro trabajo<br><br></li></p>
+                <a class="card-button" href="{{ url_for('galeria') }}">Ver galería</a>
+
+            </div>
+
+
         </div>
     </main>
     
@@ -338,6 +396,8 @@
     <!-- Hasta quí llegan las tarjetas -->
 
     <!-- Este es el chat -->
+
+    <button class="chat-button" onclick="openChat()">Chat</button>
 
     <div id="chatContainer" class="chat-container">
         <div class="chat-header">
@@ -515,7 +575,37 @@
     
     <!-- Hasta aquí llegan los JS del index -->
 
+    <!-- Este es el Js del Navbar -->
 
+
+    <script>
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        }
+    
+        </script>
+
+
+    <script>
+
+        function logout() {
+            // Redireccionar al usuario a una página diferente
+            window.location.href = "/logout";
+
+            // Reemplazar la URL actual en el historial del navegador
+         
+            var newUrl = window.location.origin + "/login"; // Cambia "logout-page" por la URL de la página a la que quieres redirigir después de cerrar sesión
+            window.history.pushState({}, '', newUrl);
+
+              // Invalidar el historial
+      history.replaceState(null, document.title, window.location.href);
+    }
+
+    </script>
 </body>
 
 </html>

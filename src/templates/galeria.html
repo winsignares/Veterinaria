@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url({{ url_for('static', filename='img/vete-desenfocada.jpg') }});
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
+        .slider-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            border
+        }
+        
+        .slider {
+            display: flex;
+            align-items: center;
+            transition: transform 0.5s ease-in-out;
+        }
+        
+        .slider-item {
+            flex: 0 0 100%;
+            width: 100%;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            animation: fade 0.5s ease-in-out forwards;
+        }
+        
+        .slider-item img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        @keyframes slide {
+            0% {
+                transform: translateX(0);
+            }
+            20% {
+                transform: translateX(0);
+            }
+            25% {
+                transform: translateX(-100%);
+            }
+            45% {
+                transform: translateX(-100%);
+            }
+            50% {
+                transform: translateX(-200%);
+            }
+            70% {
+                transform: translateX(-200%);
+            }
+            75% {
+                transform: translateX(-300%);
+            }
+            100% {
+                transform: translateX(-300%);
+            }
+        }
+        
+        @keyframes fade {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slider-container">
+        <div class="slider">
+
+            <div class="slider-item">
+                <img src="{{ url_for('static', filename='img/bano.jpg') }}" alt="Imagen 1">
+            </div>
+
+            <div class="slider-item">
+                <img src="{{ url_for('static', filename='img/340.jpg') }}" alt="Imagen 2">
+            </div>
+
+            <div class="slider-item">
+                <img src="{{ url_for('static', filename='img/gato.jpg') }}" alt="Imagen 3">
+            </div>
+
+            <div class="slider-item">
+                <img src="{{ url_for('static', filename='img/chihuahua.jpg') }}" alt="Imagen 4">
+            </div>
+
+            <div class="slider-item">
+                <img src="{{ url_for('static', filename='img/Spavet.jpg') }}" alt="Imagen 5">
+            </div>
+            
+            <div class="slider-item">
+                <img src="{{ url_for('static', filename='img/cuidandogato.jpg') }}" alt="Imagen 6">
+            </div>
+
+            <div class="slider-item">
+                <img src="{{ url_for('static', filename='img/spaperro.jpg') }}" alt="Imagen 7">
+            </div>
+
+            <div class="slider-item">
+                <img src="{{ url_for('static', filename='img/vet.png') }}" alt="Imagen 8">
+            </div>
+                    
+        </div>
+    </div>
+
+    <script>
+        // Slider automático
+        (function() {
+            var slider = document.querySelector('.slider');
+            var sliderItems = document.querySelectorAll('.slider-item');
+            var currentIndex = 0;
+            var interval;
+        
+            function startSlider() {
+                interval = setInterval(function() {
+                    currentIndex++;
+                    if (currentIndex === sliderItems.length) {
+                        currentIndex = 0;
+                    }
+                    slideTo(currentIndex);
+                }, 3000);
+            }
+        
+            function slideTo(index) {
+                slider.style.transform = 'translateX(' + (index * -100) + '%)';
+            }
+        
+            function resetSlider() {
+                clearInterval(interval);
+                currentIndex = 0;
+                slideTo(currentIndex);
+                startSlider();
+            }
+        
+            startSlider();
+        
+            window.addEventListener('resize', resetSlider);
+        })();
+    </script>
+</body>
+</html>

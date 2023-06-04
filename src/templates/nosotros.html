@@ -1,156 +1,458 @@
-{% extends 'layout.html' %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block content %}
-  
-  <!-- Este es el navbar -->
-      <header>
-        <nav class="navbar">
-            <div class="navbar-logo">
-                <img src="../img/vet.png" alt="Logo" class="logo">
-            </div>
-            <div class="navbar-title">
-                <h1><b>Baño Huellas</b></h1>
-            </div>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baño Huellas - Nosotros</title>
+    <style>
+        /* Estilos generales */
+        body {
+            
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
-            <div class="navbar-buttons">
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-                <button class="btn btn-primary rounded-pill me-2" onclick="window.location.href = 'index.html'">Inicio</button>
+        h1 {
+            text-align: center;
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 20px;
+        }
 
-                <button class="btn btn-primary rounded-pill" onclick="viewUserProfile()">Perfil</button>
-                <button class="btn btn-primary rounded-pill" onclick="logout()">Cerrar sesión</button>
-                
-            </div>
+        p {
+            font-size: 18px;
+            color: #555;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
 
-        </nav>
-    </header>
-    <!-- Hasta aquí llega el Navbar -->
+        /* Estilos del baño de veterinaria */
+        .vet-bathroom {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            margin-top: 40px;
+        }
 
+        .vet-bathroom img {
+            max-width: 500px;
+            margin-bottom: 20px;
+            animation: fadeIn 1s;
+        }
 
-    <section data-aos="fade-right" data-aos-duration="1500" class="titulo-pagina container-fluid">
-        <div class="container align-content-center justify-content-center ">
-          <h2>Nosotros</h2>
+        .vet-bathroom p {
+            max-width: 800px;
+            text-align: center;
+        }
+
+        /* Estilos del mapa */
+        #map {
+            width: 100%;
+            height: 400px;
+            margin-top: 40px;
+        }
+
+        /* Estilos del modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            padding-top: 100px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        /* Animación de desvanecimiento */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<!-- Este es el estilo del Navbar -->
+<style 2>
+
+    header {
+        background-color: #bce0ba;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-radius: 50px;
+    }
+
+    .navbar {
+        display: flex;
+        align-items: center;
+    }
+
+    .navbar-logo {
+        margin-right: 10px;
+    }
+
+    .logo {
+        width: 50px;
+        height: auto;
+    }
+
+    .navbar-title h1 {
+        margin: 0;
+        font-family: 'Font Name', sans-serif;
+        text-align: center;
+        flex-grow: 1;
+    }
+
+    .navbar-buttons {
+        display: flex;
+        gap: 10px;
+    }
+
+    /* Estilos para los botones de inicio y perfil */
+    .navbar-buttons button {
+        font-family: 'Font Name', sans-serif;
+        font-size: 14px;
+        padding: 8px 16px;
+        border-radius: 50px;
+        color: rgb(244, 247, 247);
+        background-color: rgb(61, 187, 44);
+        margin-left: 70px;
+        cursor: pointer;
+    }
+
+</style>
+<!-- Hasta aquíllega el esteilo del navbar -->
+
+<header>
+    <div class="navbar">
+        <div class="navbar-logo">
+            <img class="logo" src="{{ url_for('static', filename='img/vet.png') }}" alt="Logo">
         </div>
-      </section>
-
-    <section class="contenido-flex-nos">
-        <section class="container-xxl">
-            <div class="nosotros"> 
-                <div class="tarjeta-nosotros">
-                    <div class="row">
-                        <div class="col-md-6 imagen" data-aos="fade-right">
-                            <img class="img-nos img-nosotros-a " src="../img/vet.png" alt="vet">
-                         </div>
-                         <div class="col-md-6 linea-a d-flex align-content-center justify-content-center" data-aos="fade-left">
-                           <h3 class="titulo-nosotros">Desde 2023 nos encontramos en Malambo, brindándole atención a miles de perros y gatos Malamberos.</h3>
-                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6 imagen order-md-last" data-aos="fade-left">
-                            <img class="img-nos img-nosotros-b" src="../img/image7.jpeg" alt="Consultorio">
-                         </div>
-                         <div class="col-md-6 linea-b d-flex align-content-center justify-content-center" data-aos="fade-right">
-                            <h3 class="titulo-nosotros">Contamos con un consultorio equipado para brindarle la mejor atención a tu amigo peludo.</h3>
-                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6 imagen" data-aos="fade-right">
-                            <img class="img-nos img-nosotros-a" src="../img/medicaments.jpg" alt="Frente veterinaria">
-                         </div>
-                         <div class="col-md-6 d-flex align-content-center justify-content-center" data-aos="fade-left">
-                           <h3 class="titulo-nosotros">Nos enfocamos en tener la mayor variedad y cantidad de fármacos veterinarios.</h3>
-                         </div>
-                    </div>
-                     
-                     <div class="row">
-                        <div class="col-md-6 imagen  order-md-last" data-aos="fade-left">
-                            <img class="img-nos img-nosotros-b" src="../img/Spa vet.jpg" alt="Spa">
-                         </div>
-                         <div class="col-md-6 d-flex align-content-center justify-content-center" data-aos="fade-right">
-                            <h3 class="titulo-nosotros">Lo mejor para el descanso y estilo para tu mascota.</h3>
-                         </div>
-                     </div>
-                </div> 
-            </div>       
-        </section>
-    </section>
-
-    <section class="container text-center">
-        <div class="text-vet col-md-6 d-flex flex-column text-center">
-            <h2>
-                Más de un mes de experiencia
-            </h2>
+        <div class="navbar-title">
+            <h1>Baño Huellas</h1>
         </div>
-    </section>
+        <div class="navbar-buttons">
+            <button class="btn btn-primary rounded-pill me-2" onclick="window.location.href = 'inicio'">Inicio</button>
+            </div>
 
-
-<!-- Este es el chat -->
-
-<button class="chat-button" onclick="openChat()">Chat</button>
-<div id="chatContainer" class="chat-container">
-    <div class="chat-header">
-        <center><h3>Chat</h3></center>
-        <button class="close-button" onclick="closeChat()">X</button>
+        
+        </div>
     </div>
+    
+</header>
 
-    <div id="chatBody" class="chat-body">
-        <div class="chat-message">
-            <p>Bienvenido al chat</p>
+<body>
+    <div class="container">
+        <h1>Baño de Veterinaria Huellas</h1>
+
+        <div class="vet-bathroom">
+            <img class="image" src="{{ url_for('static', filename='img/vet.png') }}" alt="image 1">
+            <p>
+                Bienvenidos al Baño de Veterinaria Huellas, el lugar ideal para el cuidado y aseo de tus mascotas en Malambo.
+                Nuestro equipo de expertos se compromete a proporcionar un servicio excepcional y personalizado para
+                asegurar que tus queridas mascotas estén siempre limpias y saludables.
+            </p>
+        </div>
+
+        <div class="vet-bathroom">
+            <img class="image" src="{{ url_for('static', filename='img/gato.jpg') }}" alt="image 2">
+            <p>
+                En el Baño de Veterinaria Huellas, nos enorgullece ofrecer una amplia gama de servicios de aseo para perros y
+                gatos. Desde un baño relajante hasta el corte de uñas y limpieza de oídos, nuestros especialistas
+                cuidarán de cada detalle para que tus mascotas se sientan cómodas y mimadas.
+            </p>
+        </div>
+
+        <div class="vet-bathroom">
+            <img class="image" src="{{ url_for('static', filename='img/mascotas.jpg') }}" alt="image 3">
+            <p>
+                Estamos convenientemente ubicados en Malambo, lo que nos hace fácilmente accesibles para los residentes
+                locales. Puedes encontrarnos en la siguiente dirección:
+                <br>
+                Malambo.
+                <br>
+                ¡Ven y visítanos hoy mismo!
+            </p>
+        </div>
+
+        <div class="vet-bathroom">
+            <img class="image" src="{{ url_for('static', filename='img/Spavet.jpg') }}" alt="image 4">
+            <p>
+                Nuestro compromiso con la calidad y la atención al detalle nos ha convertido en el baño de veterinaria
+                preferido de la comunidad. Confía en nosotros para el cuidado de tus mascotas y descubre por qué
+                somos la opción número uno en Malambo.
+            </p>
+        </div>
+
+        <!-- Botón para abrir el modal -->
+        <div style="text-align: center; margin-top: 40px;">
+            <button onclick="openModal()">Ver Mapa</button>
+        </div>
+
+        <!-- Modal -->
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2>Ubicación en Malambo, Atlántico</h2>
+                <div id="map"></div>
+            </div>
+        </div>
+
+        <!-- Enlaces a WhatsApp y Facebook -->
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="https://wa.me/3186469410" target="_blank" style="margin-right: 10px;">
+                <img class="image" src="{{ url_for('static', filename='img/whatsapp.png') }}" alt="WhatsApp" width="40">
+            </a>
+            <a href="https://www.facebook.com/Facebook" target="_blank">
+                <img class="image" src="{{ url_for('static', filename='img/facebook.png') }}" alt="Facebook" width="40">
+            </a>
+        </div>
+
+
+
+        <!-- Este es el chat -->
+
+    <button class="chat-button" onclick="openChat()">Chat</button>
+
+    <div id="chatContainer" class="chat-container">
+        <div class="chat-header">
+            <center><h3>Chat</h3></center>
+            <button class="close-button" onclick="closeChat()">X</button>
+        </div>
+
+        <div id="chatBody" class="chat-body">
+            <div class="chat-message">
+                <p>Bienvenido al chat</p>
+            </div>
+        </div>
+        <div class="chat-actions">
+            <input id="messageInput" class="chat-input" type="text" placeholder="Escribe un mensaje...">
+            <button onclick="sendMessage()">Enviar</button>
         </div>
     </div>
-    <div class="chat-actions">
-        <input id="messageInput" class="chat-input" type="text" placeholder="Escribe un mensaje...">
-        <button onclick="sendMessage()">Enviar</button>
+    
+    <!-- Final del chat -->
+
+    <!-- Este es el estilo del chat -->
+    <style 3>
+
+        .chat-message.sent p {
+            margin-left: auto;
+            background-color: #3dbb2c;
+            color: #fff;
+        }
+
+        .chat-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            font-size: 20px;
+            font-family: 'Font Name', sans-serif;
+        }
+
+        .chat-container {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 300px;
+            max-height: 500px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            overflow-y: auto;
+            font-family: 'Font Name', sans-serif;
+            display: none;
+        }
+
+        .chat-header {
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            font-family: 'Font Name', sans-serif;
+        }
+
+
+        .chat-header h3 {
+            flex-grow: 1;
+            margin: 0;
+        }
+
+        .chat-actions {
+            position: sticky;
+            bottom: 0;
+            z-index: 1;
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-top: 1px solid #ccc;
+            font-family: 'Font Name', sans-serif;
+        }
+        .chat-actions button {
+            padding: 8px 16px;
+            border-radius: 50px;
+            color: #f4f7f7;
+            background-color: #3dbb2c;
+            border: none;
+            cursor: pointer;
+            font-family: 'Font Name', sans-serif;
+        }
+        .close-button {
+            margin-left: auto;
+            padding: 0;
+            border: none;
+            background: none;
+            color: #000;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        
+
+    </style>
+    <!-- Hasta aquí llega el estilo del chat -->
+
+ <!-- Este es el JS del chat -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Agrega la referencia a jQuery si aún no está presente -->
+
+<script>
+
+    const twilio = require('twilio');
+
+
+    function openChat() {
+        var chatContainer = document.getElementById("chatContainer");
+        chatContainer.style.display = "block";
+    }
+
+    function closeChat() {
+        var chatContainer = document.getElementById("chatContainer");
+        chatContainer.style.display = "none";
+    }
+
+    function sendMessage(event) {
+        var messageInput = document.getElementById("messageInput");
+        var message = messageInput.value;
+
+        if (message !== "") {
+            var chatBody = document.getElementById("chatBody");
+            var newMessage = document.createElement("div");
+            newMessage.className = "chat-message sent";
+            var messageText = document.createElement("p");
+            messageText.textContent = message;
+            newMessage.appendChild(messageText);
+            chatBody.appendChild(newMessage);
+            messageInput.value = "";
+
+            // Enviar mensaje utilizando Twilio
+            $.ajax({
+                url: "https://api.twilio.com/2010-04-01/Accounts/{ACbf07f67dac81ab4acfc232dccfd7d6ee}/Messages.json", // Reemplaza con el endpoint de la API de Twilio
+                method: "POST",
+                data: {
+                    body: message,
+                    to: "+573186469410", // Reemplaza con el número de teléfono de destino
+                    from: "+13613227904" // Reemplaza con tu número de teléfono de Twilio
+                },
+                headers: {
+                    "Authorization": "Basic " + btoa("ACbf07f67dac81ab4acfc232dccfd7d6ee:5127cebcf465ec27f0cdbb611ded27fa") // Reemplaza con tus credenciales de API de Twilio
+                },
+                success: function(response) {
+                    // Respuesta automática
+                    setTimeout(function() {
+                        var responseMessage = document.createElement("div");
+                        responseMessage.className = "chat-message";
+                        var responseText = document.createElement("p");
+                        responseText.textContent = "Gracias por tu mensaje. Nos pondremos en contacto contigo pronto.";
+                        responseMessage.appendChild(responseText);
+                        chatBody.appendChild(responseMessage);
+                    }, 1000);
+                }
+            });
+        }
+
+        event.preventDefault();
+    }
+</script>
+
+   
+<!-- Hasta aquí llega el JS del chat -->
+
+
+
+
+
+
+        <script>
+            // Código JavaScript para inicializar el mapa y controlar el modal
+            function initMap() {
+                var malambo = { lat: 10.8556, lng: -74.7608 }; // Coordenadas de Malambo
+
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 15,
+                    center: malambo
+                });
+
+            }
+            var modal = document.getElementById("myModal");
+
+            function openModal() {
+                modal.style.display = "block";
+                initMap();
+            }
+
+            function closeModal() {
+                modal.style.display = "none";
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    closeModal();
+                }
+            };
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
     </div>
-</div>
+</body>
 
-<!-- Final del chat -->
-
-    <footer class="pie container-fluid pt-4" data-aos="fade-up">
-        <div class="grid-pie container text-center">
-          <div class="row pb-5">
-            <div class="col-lg-4 pb-3 pt-3 text-center">
-              <a class="logo-pie " href="./index.html"><img class="logo-imagen" src="../img/vet.png" alt="vet"></a>
-            </div>
-            <div class="col-lg-4 pt-3 pb-3 justify-content-center text-center align-content-center">
-              <iframe class="map-form col" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.3734989816655!2d-74.77849338523079!3d10.857813992256815!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e6011fb9d1ab09b%3A0x2a9b0621657e4e0a!2sVeterinaria%20Huellas%20-%20Veterinario%20a%20domicilio!5e0!3m2!1sen!2sco!4v1622547241069!5m2!1sen!2sco" allowfullscreen="" loading="lazy"></iframe>
-            </div>
-            <div class="col-lg-4 pt-3 pb-3 text-center">
-              <div class="leyenda ">
-                  <h3>Dirección</h3>
-                  <p>Concorde #1234, Malambo</p>
-                  <h3>Horarios de atención</h3>
-                  <p>Lunes a Viernes: 8:00 AM - 6:00 PM</p>
-                  <p>Sábados y Domingos: 9:00 AM - 1:00 PM</p>
-              </div>
-            </div>
-          </div>
-          <div class="row pt-4">
-            <div class="col-12 redes">
-              <ul class="redes-pie">
-                  <li class="redes-item-pie"><a target="_blank" href="#"><i class="bi bi-facebook"></i>Facebook</a></li>
-                  <li class="redes-item-pie"><a target="_blank" href="#"><i class="bi bi-twitter"></i>Twitter</a></li>
-                  <li class="redes-item-pie"><a target="_blank" href="#"><i class="bi bi-instagram"></i>Instagram</a></li>
-                  <li class="redes-item-pie"><a target="_blank" href="#"><i class="bi bi-youtube"></i>YouTube</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </footer>
-
-      {% endblock %}
-
-      {% block scripts %}
-
-      {% comment %} Aquí van los links de Scripts de internet {% endcomment %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script src="../js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init();
-    </script>
-
-
-    {% endblock %}
-
+</html>
