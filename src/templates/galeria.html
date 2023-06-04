@@ -46,12 +46,14 @@
             justify-content: center;
             opacity: 0;
             animation: fade 0.5s ease-in-out forwards;
+            border-radius: 20px;
         }
         
         .slider-item img {
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
+            border-radius: 30px;
         }
         
         @keyframes slide {
@@ -89,10 +91,20 @@
                 opacity: 1;
             }
         }
+
+        .logo {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 100px; /* Ajusta el ancho según tus necesidades */
+            z-index: 999; /* Ajusta el valor según la superposición deseada */
+        }
     </style>
 </head>
 <body>
     <div class="slider-container">
+        <img class="logo" src="{{ url_for('static', filename='img/vet.png') }}" alt="Logo">
+
         <div class="slider">
 
             <div class="slider-item">
