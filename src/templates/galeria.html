@@ -100,8 +100,88 @@
             z-index: 999; /* Ajusta el valor según la superposición deseada */
         }
     </style>
+
+    <!-- Este es el estilo del Navbar -->
+<style 2>
+
+    header {
+        background-color: #bce0ba;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-radius: 50px;
+    }
+
+    .navbar {
+        display: flex;
+        align-items: center;
+    }
+
+    .navbar-logo {
+        margin-right: 10px;
+    }
+
+    .logo {
+        width: 50px;
+        height: auto;
+    }
+
+    .navbar-title h1 {
+        margin: 0;
+        font-family: 'Font Name', sans-serif;
+        text-align: center;
+        flex-grow: 1;
+    }
+
+    .navbar-buttons {
+        display: flex;
+        gap: 10px;
+    }
+
+    /* Estilos para los botones de inicio y perfil */
+    .navbar-buttons button {
+        font-family: 'Font Name', sans-serif;
+        font-size: 14px;
+        padding: 8px 16px;
+        border-radius: 50px;
+        color: rgb(244, 247, 247);
+        background-color: rgb(61, 187, 44);
+        margin-left: 70px;
+        cursor: pointer;
+    }
+
+</style>
+<!-- Hasta aquíllega el esteilo del navbar -->
+
 </head>
 <body>
+
+
+    <header>
+        <div class="navbar">
+            <div class="navbar-logo">
+                <img class="logo" src="{{ url_for('static', filename='img/vet.png') }}" alt="Logo">
+            </div>
+            <div class="navbar-title">
+                <h1>Baño Huellas</h1>
+            </div>
+            <div class="navbar-buttons">
+                <button class="btn btn-primary rounded-pill me-2" onclick="window.location.href = 'inicio'">Inicio</button>
+    
+                <div class="navbar-buttons">
+                    
+                    <button class="btn btn-primary rounded-pill" onclick="logout()">Cerrar sesión</button>
+                </div>
+    
+            
+            </div>
+        </div>
+        
+    </header>
+
+
+
     <div class="slider-container">
         <img class="logo" src="{{ url_for('static', filename='img/vet.png') }}" alt="Logo">
 
@@ -142,6 +222,9 @@
         </div>
     </div>
 
+    <!--ESTOS SON LOS JS DE GALERIA-->
+
+
     <script>
         // Slider automático
         (function() {
@@ -176,5 +259,76 @@
             window.addEventListener('resize', resetSlider);
         })();
     </script>
+
+<!--Este es el JS del Login-->
+
+<script>
+
+
+    function login() {
+        // Realizar el proceso de inicio de sesión
+        
+        // Limpiar los campos de inicio de sesión
+document.getElementById("loginForm").reset();
+
+// Redireccionar al usuario al index
+window.location.href = "/index.html"; // Reemplaza "/index.html" con la ruta correcta a tu página index
+}
+
+
+function checkLogin() {
+if (localStorage.getItem("isLoggedIn")) {
+  window.location.href = "index.html"; // Redirigir a la página index
+}
+else {
+  // Agregar una nueva entrada al historial sin cambiar la URL
+  history.replaceState(null, null, window.location.href);
+  history.pushState(null, null, window.location.href);
+  window.onpopstate = function(event) {
+    history.go(1);
+  };
+}
+}
+
+function login() {
+// Lógica de inicio de sesión aquí
+localStorage.setItem("isLoggedIn", true);
+}
+
+
+    function logout() {
+        // Redireccionar al usuario a una página diferente
+        window.location.href = "/logout";
+
+        // Reemplazar la URL actual en el historial del navegador
+     
+        var newUrl = window.location.origin + "/login"; // Cambia "logout-page" por la URL de la página a la que quieres redirigir después de cerrar sesión
+        window.history.pushState({}, '', newUrl);
+
+          // Invalidar el historial
+  history.replaceState(null, document.title, window.location.href);
+}
+
+    
+
+</script>
+
+<!-- Este es el Js del Navbar -->
+
+
+<script>
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+
+    </script>
+
+
+
+
+
 </body>
 </html>

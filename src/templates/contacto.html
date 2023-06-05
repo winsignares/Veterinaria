@@ -157,6 +157,61 @@
 
     <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
 
+    <!--Este es el JS del Login-->
+
+    <script>
+
+
+        function login() {
+            // Realizar el proceso de inicio de sesión
+            
+            // Limpiar los campos de inicio de sesión
+  document.getElementById("loginForm").reset();
+  
+  // Redireccionar al usuario al index
+  window.location.href = "/index.html"; // Reemplaza "/index.html" con la ruta correcta a tu página index
+}
+
+
+function checkLogin() {
+    if (localStorage.getItem("isLoggedIn")) {
+      window.location.href = "index.html"; // Redirigir a la página index
+    }
+    else {
+      // Agregar una nueva entrada al historial sin cambiar la URL
+      history.replaceState(null, null, window.location.href);
+      history.pushState(null, null, window.location.href);
+      window.onpopstate = function(event) {
+        history.go(1);
+      };
+    }
+  }
+
+  function login() {
+    // Lógica de inicio de sesión aquí
+    localStorage.setItem("isLoggedIn", true);
+  }
+
+
+        function logout() {
+            // Redireccionar al usuario a una página diferente
+            window.location.href = "/logout";
+
+            // Reemplazar la URL actual en el historial del navegador
+         
+            var newUrl = window.location.origin + "/login"; // Cambia "logout-page" por la URL de la página a la que quieres redirigir después de cerrar sesión
+            window.history.pushState({}, '', newUrl);
+
+              // Invalidar el historial
+      history.replaceState(null, document.title, window.location.href);
+    }
+
+        
+
+    </script>
+
+
+
 </body>
 
 </html>

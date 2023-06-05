@@ -154,11 +154,6 @@
 
     <!-- Hasta aquí llegan los estilos del index -->
 
-    <!-- Estos son los codigos JS del index -->
-
-
-    <!-- Hasta aquí llegan los codigos JS del index -->
-
 </head>
 
 <body>
@@ -292,15 +287,12 @@
     .carousel::-webkit-scrollbar {
       display: none;
     }
+
     </style>
     
 
 <!--Hasta aquí llega el estilo de la linea de tiempo -->
     
-
-
-
-
 
 
 <!-- Estos son los JS del index -->
@@ -385,7 +377,41 @@
         </script>
 
 
+    <!--Este es el JS del Login-->
+
     <script>
+
+
+        function login() {
+            // Realizar el proceso de inicio de sesión
+            
+            // Limpiar los campos de inicio de sesión
+  document.getElementById("loginForm").reset();
+  
+  // Redireccionar al usuario al index
+  window.location.href = "/index.html"; // Reemplaza "/index.html" con la ruta correcta a tu página index
+}
+
+
+function checkLogin() {
+    if (localStorage.getItem("isLoggedIn")) {
+      window.location.href = "index.html"; // Redirigir a la página index
+    }
+    else {
+      // Agregar una nueva entrada al historial sin cambiar la URL
+      history.replaceState(null, null, window.location.href);
+      history.pushState(null, null, window.location.href);
+      window.onpopstate = function(event) {
+        history.go(1);
+      };
+    }
+  }
+
+  function login() {
+    // Lógica de inicio de sesión aquí
+    localStorage.setItem("isLoggedIn", true);
+  }
+
 
         function logout() {
             // Redireccionar al usuario a una página diferente
@@ -400,7 +426,10 @@
       history.replaceState(null, document.title, window.location.href);
     }
 
+        
+
     </script>
+
 
 
     <!--ESTE ES EL CHAT-->
