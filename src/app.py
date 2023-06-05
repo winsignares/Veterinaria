@@ -147,6 +147,11 @@ def generate_bot_response(message):
 # Hasta aquí llega la ruta del chat
 
 
+# AQUÍ TENGO QUE HACER LAS SECCIONES PARA BLOQUEAR LA FILTRACIÓN DE LOS USUARIOS POR MEDIO DEL URL O LOS BOTONES DE NAVEGACIÓN
+
+# Esta es la ruta para bloquear el usuario
+
+
 # Estas son las rutas de las tarjetas
 @app.route('/nosotros')
 def nosotros():
