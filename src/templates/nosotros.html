@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Baño Huellas - Nosotros</title>
+
+    <!--Este es el estilo principal de la pestaña-->
     <style>
         /* Estilos generales */
         body {
@@ -55,37 +57,7 @@
             text-align: center;
         }
 
-        /* Estilos del mapa */
-        #map {
-            width: 100%;
-            height: 400px;
-            margin-top: 40px;
-        }
-
-        /* Estilos del modal */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 999;
-            padding-top: 100px;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-
-        .modal-content {
-            background-color: #fefefe;
-            margin: auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 800px;
-            text-align: center;
-        }
-
+        
         /* Animación de desvanecimiento */
         @keyframes fadeIn {
             from {
@@ -97,6 +69,7 @@
             }
         }
     </style>
+    <!--Hasta aquí llega el estilo principal de la pestaña-->
 </head>
 
 <!-- Este es el estilo del Navbar -->
@@ -213,19 +186,6 @@
             </p>
         </div>
 
-        <!-- Botón para abrir el modal -->
-        <div style="text-align: center; margin-top: 40px;">
-            <button onclick="openModal()">Ver Mapa</button>
-        </div>
-
-        <!-- Modal -->
-        <div id="myModal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <h2>Ubicación en Malambo, Atlántico</h2>
-                <div id="map"></div>
-            </div>
-        </div>
 
         <!-- Enlaces a WhatsApp y Facebook -->
         <div style="text-align: center; margin-top: 40px;">
@@ -238,10 +198,9 @@
         </div>
 
 
+<!--ESTE ES EL CHAT-->
 
-        <!-- Este es el chat -->
-
-    <button class="chat-button" onclick="openChat()">Chat</button>
+<button class="chat-button" onclick="openChat()">Chat</button>
 
     <div id="chatContainer" class="chat-container">
         <div class="chat-header">
@@ -260,7 +219,90 @@
         </div>
     </div>
     
-    <!-- Final del chat -->
+
+<!--HASTA AQUÏ LLEGA EL CHAT-->
+        <!-- Este es el JS del chat -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Agrega la referencia a jQuery si aún no está presente -->
+
+<script>
+
+    const twilio = require('twilio');
+
+
+    function openChat() {
+        var chatContainer = document.getElementById("chatContainer");
+        chatContainer.style.display = "block";
+    }
+
+    function closeChat() {
+        var chatContainer = document.getElementById("chatContainer");
+        chatContainer.style.display = "none";
+    }
+
+    function sendMessage(event) {
+        var messageInput = document.getElementById("messageInput");
+        var message = messageInput.value;
+
+        if (message !== "") {
+            var chatBody = document.getElementById("chatBody");
+            var newMessage = document.createElement("div");
+            newMessage.className = "chat-message sent";
+            var messageText = document.createElement("p");
+            messageText.textContent = message;
+            newMessage.appendChild(messageText);
+            chatBody.appendChild(newMessage);
+            messageInput.value = "";
+
+            // Respuesta automática
+            setTimeout(function() {
+                var response = "Gracias por tu mensaje. Nos pondremos en contacto contigo pronto.";
+                var responseMessage = document.createElement("div");
+                responseMessage.className = "chat-message";
+                var responseText = document.createElement("p");
+                responseText.textContent = response;
+                responseMessage.appendChild(responseText);
+                chatBody.appendChild(responseMessage);
+            }, 1000);
+        }
+
+            // Enviar mensaje utilizando Twilio
+            $.ajax({
+                url: "https://api.twilio.com/2010-04-01/Accounts/{ACbf07f67dac81ab4acfc232dccfd7d6ee}/Messages.json", // Reemplaza con el endpoint de la API de Twilio
+                method: "POST",
+                data: {
+                    body: message,
+                    to: "+573186469410", // Reemplaza con el número de teléfono de destino
+                    from: "+13613227904" // Reemplaza con tu número de teléfono de Twilio
+                },
+                headers: {
+                    "Authorization": "Basic " + btoa("ACbf07f67dac81ab4acfc232dccfd7d6ee:5127cebcf465ec27f0cdbb611ded27fa") // Reemplaza con tus credenciales de API de Twilio
+                },
+                success: function(response) {
+                    // Respuesta automática
+                    setTimeout(function() {
+                        var responseMessage = document.createElement("div");
+                        responseMessage.className = "chat-message";
+                        var responseText = document.createElement("p");
+                        responseText.textContent = "Gracias por tu mensaje. Nos pondremos en contacto contigo pronto.";
+                        responseMessage.appendChild(responseText);
+                        chatBody.appendChild(responseMessage);
+                    }, 1000);
+                }
+            });
+        }
+
+        //Al abrir la pestaña no estará abierto el chat
+        window.addEventListener("DOMContentLoaded", function() {
+            var chatButton = document.querySelector(".chat-button");
+            chatButton.style.display = "block";
+            
+        }) ;
+
+    
+</script>
+
+   
+<!-- Final del JS del chat -->
 
     <!-- Este es el estilo del chat -->
     <style 3>
@@ -352,74 +394,6 @@
 
     </style>
     <!-- Hasta aquí llega el estilo del chat -->
-
- <!-- Este es el JS del chat -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Agrega la referencia a jQuery si aún no está presente -->
-
-<script>
-
-    const twilio = require('twilio');
-
-
-    function openChat() {
-        var chatContainer = document.getElementById("chatContainer");
-        chatContainer.style.display = "block";
-    }
-
-    function closeChat() {
-        var chatContainer = document.getElementById("chatContainer");
-        chatContainer.style.display = "none";
-    }
-
-    function sendMessage(event) {
-        var messageInput = document.getElementById("messageInput");
-        var message = messageInput.value;
-
-        if (message !== "") {
-            var chatBody = document.getElementById("chatBody");
-            var newMessage = document.createElement("div");
-            newMessage.className = "chat-message sent";
-            var messageText = document.createElement("p");
-            messageText.textContent = message;
-            newMessage.appendChild(messageText);
-            chatBody.appendChild(newMessage);
-            messageInput.value = "";
-
-            // Enviar mensaje utilizando Twilio
-            $.ajax({
-                url: "https://api.twilio.com/2010-04-01/Accounts/{ACbf07f67dac81ab4acfc232dccfd7d6ee}/Messages.json", // Reemplaza con el endpoint de la API de Twilio
-                method: "POST",
-                data: {
-                    body: message,
-                    to: "+573186469410", // Reemplaza con el número de teléfono de destino
-                    from: "+13613227904" // Reemplaza con tu número de teléfono de Twilio
-                },
-                headers: {
-                    "Authorization": "Basic " + btoa("ACbf07f67dac81ab4acfc232dccfd7d6ee:5127cebcf465ec27f0cdbb611ded27fa") // Reemplaza con tus credenciales de API de Twilio
-                },
-                success: function(response) {
-                    // Respuesta automática
-                    setTimeout(function() {
-                        var responseMessage = document.createElement("div");
-                        responseMessage.className = "chat-message";
-                        var responseText = document.createElement("p");
-                        responseText.textContent = "Gracias por tu mensaje. Nos pondremos en contacto contigo pronto.";
-                        responseMessage.appendChild(responseText);
-                        chatBody.appendChild(responseMessage);
-                    }, 1000);
-                }
-            });
-        }
-
-        event.preventDefault();
-    }
-</script>
-
-   
-<!-- Hasta aquí llega el JS del chat -->
-
-
-
 
 
 
