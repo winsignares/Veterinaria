@@ -134,6 +134,8 @@
         .navbar-buttons {
             display: flex;
             gap: 10px;
+            align-items: center;
+            justify-content: flex-end;
         }
 
         /* Estilos para los botones de inicio y perfil */
@@ -146,188 +148,18 @@
             background-color: rgb(61, 187, 44);
             margin-left: 70px;
             cursor: pointer;
+            align-items: center;
+            justify-content: flex-end;
         }
 
     </style>
     <!-- Hasta aquíllega el esteilo del navbar -->
 
-    <!-- Este es el estilo del chat -->
-    <style 3>
-
-        .chat-message.sent p {
-            margin-left: auto;
-            background-color: #3dbb2c;
-            color: #fff;
-        }
-
-        .chat-button {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            background-color: #4caf50;
-            color: #fff;
-            border: none;
-            border-radius: 50%;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-            cursor: pointer;
-            font-size: 20px;
-            font-family: 'Font Name', sans-serif;
-        }
-
-        .chat-container {
-            position: fixed;
-            bottom: 90px;
-            right: 20px;
-            width: 300px;
-            max-height: 500px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            background-color: #fff;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-            overflow-y: auto;
-            font-family: 'Font Name', sans-serif;
-            display: none;
-        }
-
-        .chat-header {
-            position: sticky;
-            top: 0;
-            z-index: 1;
-            background-color: #f5f5f5;
-            padding: 10px;
-            border-bottom: 1px solid #ccc;
-            border-top-left-radius: 5px;
-            border-top-right-radius: 5px;
-            font-family: 'Font Name', sans-serif;
-        }
-
-
-        .chat-header h3 {
-            flex-grow: 1;
-            margin: 0;
-        }
-
-        .chat-actions {
-            position: sticky;
-            bottom: 0;
-            z-index: 1;
-            background-color: #f5f5f5;
-            padding: 10px;
-            border-top: 1px solid #ccc;
-            font-family: 'Font Name', sans-serif;
-        }
-        .chat-actions button {
-            padding: 8px 16px;
-            border-radius: 50px;
-            color: #f4f7f7;
-            background-color: #3dbb2c;
-            border: none;
-            cursor: pointer;
-            font-family: 'Font Name', sans-serif;
-        }
-        .close-button {
-            margin-left: auto;
-            padding: 0;
-            border: none;
-            background: none;
-            color: #000;
-            font-size: 18px;
-            cursor: pointer;
-        }
-
-        
-
-    </style>
-    <!-- Hasta aquí llega el estilo del chat -->
 
     <!-- Hasta aquí llegan los estilos del index -->
 
     <!-- Estos son los codigos JS del index -->
 
-<!-- Este es el JS del chat -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Agrega la referencia a jQuery si aún no está presente -->
-
-<script>
-
-    const twilio = require('twilio');
-
-
-    function openChat() {
-        var chatContainer = document.getElementById("chatContainer");
-        chatContainer.style.display = "block";
-    }
-
-    function closeChat() {
-        var chatContainer = document.getElementById("chatContainer");
-        chatContainer.style.display = "none";
-    }
-
-    function sendMessage(event) {
-        var messageInput = document.getElementById("messageInput");
-        var message = messageInput.value;
-
-        if (message !== "") {
-            var chatBody = document.getElementById("chatBody");
-            var newMessage = document.createElement("div");
-            newMessage.className = "chat-message sent";
-            var messageText = document.createElement("p");
-            messageText.textContent = message;
-            newMessage.appendChild(messageText);
-            chatBody.appendChild(newMessage);
-            messageInput.value = "";
-
-            // Respuesta automática
-            setTimeout(function() {
-                var response = "Gracias por tu mensaje. Nos pondremos en contacto contigo pronto.";
-                var responseMessage = document.createElement("div");
-                responseMessage.className = "chat-message";
-                var responseText = document.createElement("p");
-                responseText.textContent = response;
-                responseMessage.appendChild(responseText);
-                chatBody.appendChild(responseMessage);
-            }, 1000);
-        }
-
-            // Enviar mensaje utilizando Twilio
-            $.ajax({
-                url: "https://api.twilio.com/2010-04-01/Accounts/{ACbf07f67dac81ab4acfc232dccfd7d6ee}/Messages.json", // Reemplaza con el endpoint de la API de Twilio
-                method: "POST",
-                data: {
-                    body: message,
-                    to: "+573186469410", // Reemplaza con el número de teléfono de destino
-                    from: "+13613227904" // Reemplaza con tu número de teléfono de Twilio
-                },
-                headers: {
-                    "Authorization": "Basic " + btoa("ACbf07f67dac81ab4acfc232dccfd7d6ee:5127cebcf465ec27f0cdbb611ded27fa") // Reemplaza con tus credenciales de API de Twilio
-                },
-                success: function(response) {
-                    // Respuesta automática
-                    setTimeout(function() {
-                        var responseMessage = document.createElement("div");
-                        responseMessage.className = "chat-message";
-                        var responseText = document.createElement("p");
-                        responseText.textContent = "Gracias por tu mensaje. Nos pondremos en contacto contigo pronto.";
-                        responseMessage.appendChild(responseText);
-                        chatBody.appendChild(responseMessage);
-                    }, 1000);
-                }
-            });
-        }
-
-        //Al abrir la pestaña no estará abierto el chat
-        window.addEventListener("DOMContentLoaded", function() {
-            var chatButton = document.querySelector(".chat-button");
-            chatButton.style.display = "block";
-            
-        }) ;
-
-    
-</script>
-
-   
-<!-- Final del JS del chat -->
 
     <!-- Hasta aquí llegan los codigos JS del index -->
 
@@ -388,29 +220,7 @@
 
     <!-- Hasta quí llegan las tarjetas -->
 
-    <!-- Este es el chat -->
-
-    <button class="chat-button" onclick="openChat()">Chat</button>
-
-    <div id="chatContainer" class="chat-container">
-        <div class="chat-header">
-            <center><h3>Chat</h3></center>
-            <button class="close-button" onclick="closeChat()">X</button>
-        </div>
-
-        <div id="chatBody" class="chat-body">
-            <div class="chat-message">
-                <p>Bienvenido al chat</p>
-            </div>
-        </div>
-        <div class="chat-actions">
-            <input id="messageInput" class="chat-input" type="text" placeholder="Escribe un mensaje...">
-            <button onclick="sendMessage()">Enviar</button>
-        </div>
-    </div>
-    
-    <!-- Final del chat -->
-
+  
     <!-- Estos son los JS del index -->
 
 
@@ -498,6 +308,32 @@ function checkLogin() {
 
         
 
+    </script>
+
+
+    <!--ESTE ES EL CHAT-->
+
+
+
+    <!-- Chat de Tidio -->
+    <script src="//code.tidio.co/7ebfhe2kqjbhib6rg46ab23t08jnyden.js" async></script>
+    <script>
+        function resetChat() {
+            if (typeof tidioChatApi !== "undefined") {
+                tidioChatApi.reset();
+            }
+        }
+    </script>
+
+    <!-- Lógica para eliminar la conversación -->
+    <script>
+        window.onload = function() {
+            resetChat(); // Llama a la función para restablecer el chat al cargar la página
+
+            // Agrega un evento al botón "Cerrar sesión" para restablecer el chat al hacer clic
+            var logoutButton = document.getElementById("logout");
+            logoutButton.addEventListener("click", resetChat);
+        };
     </script>
 
 
