@@ -245,13 +245,13 @@
   document.getElementById("loginForm").reset();
   
   // Redireccionar al usuario al index
-  window.location.href = "/index.html"; // Reemplaza "/index.html" con la ruta correcta a tu página index
+  window.location.href = "/index.html"; // 
 }
 
 
 function checkLogin() {
     if (localStorage.getItem("isLoggedIn")) {
-      window.location.href = "index.html"; // Redirigir a la página index
+      window.location.href = "index.html"; // Esto es para redirigir a la página index
     }
     else {
       // Agregar una nueva entrada al historial sin cambiar la URL
@@ -264,7 +264,7 @@ function checkLogin() {
   }
 
   function login() {
-    // Lógica de inicio de sesión aquí
+    // Esta es la lógica de inicio de sesión 
     localStorage.setItem("isLoggedIn", true);
   }
 

@@ -272,7 +272,7 @@
 document.getElementById("loginForm").reset();
 
 // Redireccionar al usuario al index
-window.location.href = "/index.html"; // Reemplaza "/index.html" con la ruta correcta a tu página index
+window.location.href = "/index.html"; 
 }
 
 
@@ -302,7 +302,7 @@ localStorage.setItem("isLoggedIn", true);
 
         // Reemplazar la URL actual en el historial del navegador
      
-        var newUrl = window.location.origin + "/login"; // Cambia "logout-page" por la URL de la página a la que quieres redirigir después de cerrar sesión
+        var newUrl = window.location.origin + "/login"; 
         window.history.pushState({}, '', newUrl);
 
           // Invalidar el historial
