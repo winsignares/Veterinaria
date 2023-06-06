@@ -46,6 +46,7 @@
             display: flex;
             justify-content: center;
             margin-top: 20px;
+            border-radius: 20px;
         }
 
         .card {
@@ -58,6 +59,7 @@
             color: #000;
             font-family: 'Font Name', sans-serif;
             transition: transform 0.3s;
+            border-radius: 20px;
         }
 
         .card:hover {
@@ -73,6 +75,7 @@
         .card-image {
             max-width: 100%;
             height: auto;
+            border-radius: 20px;
         }
 
         .card-button {
@@ -84,7 +87,7 @@
             color: #fff;
             border: none;
             padding: 10px 20px;
-            border-radius: 5px;
+            border-radius: 20px;
             text-decoration: none;
             font-family: 'Font Name', sans-serif;
         
@@ -187,18 +190,20 @@
             <div class="card">
                 <img class="card-image" src="{{ url_for('static', filename='img/paquetebasicperro.jpg') }}" alt="Servicio 1">
 
-                <h3>Paquete Básico</h3>
+                <center><h3>Paquete Básico</h3>
                 <p>En este paquete encontrarás <br><li>Baño, secado, masaje.<br><br><center><b>COP $ 20.000</b></center></li></p>
                 <a href="https://biz.payulatam.com/B0f2a962384F074"><img src="https://ecommerce.payulatam.com/img-secure-2015/boton_pagar_mediano.png"></a>
-
+            </center>
             </div>
             
             <div class="card">
                 <img class="card-image" src="{{ url_for('static', filename='img/chihuahua.jpg') }}" alt="Servicio 3">
 
-                <h3>Paquete Premium</h3>
+                <center><h3>Paquete Premium</h3>
                 <p>En este paquete encontrarás <br><li>Baño, secado, masaje, corte de pelo.<br><br><center><b>COP $ 57.500</b></center></li></p>
                 <a href="https://biz.payulatam.com/B0f2a967BDE8109"><img src="https://ecommerce.payulatam.com/img-secure-2015/boton_pagar_mediano.png"></a>
+
+            </center>
 
             </div>
 -
@@ -206,9 +211,11 @@
             <div class="card">
                 <img class="card-image" src="{{ url_for('static', filename='img/gato.jpg') }}" alt="Servicio 2">
 
-                <h3>Galeria</h3>
+                <center><h3>Galeria</h3>
                 <p>Aquí encontrarás nuestra galeria<br><li>Fotos de primera mano que refleja nuestro trabajo<br><br></li></p>
                 <a class="card-button" href="{{ url_for('galeria') }}">Ver galería</a>
+
+                </center> 
 
             </div>
 
