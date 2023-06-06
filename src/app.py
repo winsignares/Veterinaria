@@ -142,32 +142,29 @@ def inicio():
     return redirect(url_for("login"))
 
 
-@app.route('/save_message', methods=['POST'])
-@login_required
-def save_message():
-    message = request.form.get('message')
+# @app.route('/save_message', methods=['POST'])
+# @login_required
+# def save_message():
+#     message = request.form.get('message')
 
-    # Agregar el mensaje a la lista de mensajes del chat
-    chat_messages.append(message)
+#     # Agregar el mensaje a la lista de mensajes del chat
+#     chat_messages.append(message)
 
-    # Realizar alguna lógica o procesamiento adicional con el mensaje si es necesario
+#     # Realizar alguna lógica o procesamiento adicional con el mensaje si es necesario
 
-    # Generar una respuesta del bot
-    bot_response = generate_bot_response(message)
+#     # Generar una respuesta del bot
+#     bot_response = generate_bot_response(message)
 
-    # Agregar la respuesta del bot a la lista de mensajes del chat
-    chat_messages.append(bot_response)
+#     # Agregar la respuesta del bot a la lista de mensajes del chat
+#     chat_messages.append(bot_response)
 
-    # Retornar la respuesta como una estructura de datos JSON
-    return jsonify({'message': bot_response})
+#     # Retornar la respuesta como una estructura de datos JSON
+#     return jsonify({'message': bot_response})
 
 
-def generate_bot_response(message):
-    # Aquí puedes agregar la lógica para generar la respuesta del bot
-    # Puedes utilizar el modelo de lenguaje GPT-3.5 u otros métodos
-
-    # Ejemplo: simplemente retornar el mensaje del usuario invertido
-    return message[::-1]
+# def generate_bot_response(message):
+   
+#     return message[::-1]
 
 
 @app.route('/nosotros')
