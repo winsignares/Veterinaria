@@ -2,12 +2,29 @@ from flask import Flask, render_template, request, redirect, url_for, session, m
 from flask_login import LoginManager, login_required, login_user, logout_user, current_user
 import mysql.connector
 from datetime import datetime
+import bcrypt
+from itsdangerous import URLSafeTimedSerializer
+from flask_mail import Mail, Message
+import random
+import string
+import uuid
+from flask import flash
+
 
 app = Flask(__name__)
 app.secret_key = "prueba"
 
-login_manager = LoginManager(app)
-login_manager.login_view = "login"
+# Configuración del servidor de correo saliente
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = 'jorgeadanfonlopez@gmail.com'
+app.config['MAIL_PASSWORD'] = '1048268110'
+
+# Inicializar la extensión de correo electrónico
+mail = Mail(app)
+
+
 
 # Configuración de la conexión a la base de datos MySQL
 db = mysql.connector.connect(
@@ -77,23 +94,26 @@ def login():
         email = request.form.get("email")
         password = request.form.get("password")
 
-        # Realizar consulta a la base de datos para validar el usuario
+        # Realizar consulta a la base de datos para obtener el hash de la contraseña del usuario
         cursor = db.cursor()
-        query = "SELECT * FROM users WHERE email = %s AND password = %s"
-        cursor.execute(query, (email, password))
+        query = "SELECT * FROM users WHERE email = %s"
+        cursor.execute(query, (email,))
         user = cursor.fetchone()
 
         if user:
-            # Si el usuario existe en la base de datos, iniciar sesión y redirigir al perfil
-            user_obj = User(user[0])
-            login_user(user_obj)
-            return redirect(url_for("inicio"))
-        else:
-            # Si el usuario no existe o las credenciales son incorrectas, mostrar mensaje de error
-            error_message = "Correo electrónico o contraseña incorrectos"
-            return render_template("login.html", error_message=error_message)
+            # Verificar el hash de la contraseña almacenada con la contraseña proporcionada
+            if bcrypt.checkpw(password.encode("utf-8"), user[2].encode("utf-8")):
+                # Contraseña válida, iniciar sesión y redirigir al perfil
+                user_obj = User(user[0])
+                login_user(user_obj)
+                return redirect(url_for("inicio"))
+
+        # Si el usuario no existe o las credenciales son incorrectas, mostrar mensaje de error
+        error_message = "Correo electrónico o contraseña incorrectos"
+        return render_template("login.html", error_message=error_message)
 
     return render_template("login.html")
+
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -104,11 +124,14 @@ def register():
         email = request.form.get("email")
         password = request.form.get("password")
 
+        # Generar el hash y salting de la contraseña
+        password_hash = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
+
         # Obtener la fecha y hora actual
         current_date = datetime.now()
 
-        # Insertar los datos del nuevo usuario y la fecha actual en la base de datos
-        cursor.execute("INSERT INTO users (email, password, registration_date) VALUES (%s, %s, %s)", (email, password, current_date))
+        # Insertar los datos del nuevo usuario y el hash de la contraseña en la base de datos
+        cursor.execute("INSERT INTO users (email, password, registration_date) VALUES (%s, %s, %s)", (email, password_hash, current_date))
         db.commit()
 
         # Mostrar mensaje de éxito
@@ -177,6 +200,72 @@ def contacto():
 @login_required
 def galeria():
     return render_template("galeria.html")
+
+
+
+
+
+@app.route('/forgot_password', methods=['GET', 'POST'])
+def forgot_password():
+    if request.method == 'POST':
+        email = request.form.get('email')
+
+    
+    # Consultar el usuario por su correo electrónico en la base de datos
+        cursor = db.cursor()
+        query = "SELECT * FROM users WHERE email = %s"
+        cursor.execute(query, (email,))
+        user = cursor.fetchone()        
+
+        if user:
+           # Generar un token único
+            token = str(uuid.uuid4())
+
+            # Enviar correo electrónico de recuperación de contraseña
+            send_password_reset_email(email, token)
+
+            flash('Se ha enviado un correo electrónico con las instrucciones para restablecer la contraseña', 'success')
+            return redirect('/login')
+        else:
+            flash('Correo electrónico no encontrado', 'error')
+
+    return render_template('forgot_password.html')
+
+@app.route('/reset_password/<token>', methods=['GET', 'POST'])
+@app.route('/reset_password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+
+        # Consultar el usuario por su correo electrónico en la base de datos
+        cursor = db.cursor()
+        query = "SELECT * FROM users WHERE email = %s"
+        cursor.execute(query, (email,))
+        user = cursor.fetchone()
+
+        if user:
+            # Actualizar la contraseña del usuario en la base de datos
+            password_hash = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
+            update_query = "UPDATE users SET password = %s WHERE email = %s"
+            cursor.execute(update_query, (password_hash, email))
+            db.commit()
+
+            flash('Contraseña actualizada correctamente', 'success')
+            return redirect('/login')
+        else:
+            flash('Correo electrónico no encontrado', 'error')
+
+    return render_template('reset_password.html', token=token)
+
+
+def send_password_reset_email(email, token):
+    msg = Message('Recuperación de Contraseña', sender='your_email@gmail.com', recipients=[email])
+    msg.body = f"Para restablecer tu contraseña, haz clic en el siguiente enlace: {request.host_url}reset_password/{token}"
+    mail.send(msg)
+    
+    
+    
 
 if __name__ == "__main__":
     app.run()
