@@ -314,28 +314,12 @@ function checkLogin() {
 
 
 
-    <!-- Chat de Tidio -->
-    <script src="//code.tidio.co/7ebfhe2kqjbhib6rg46ab23t08jnyden.js" async></script>
-    <script>
-        function resetChat() {
-            if (typeof tidioChatApi !== "undefined") {
-                tidioChatApi.reset();
-            }
-        }
-    </script>
+    <!-- Chat de Tidio o Zendesk -->
 
-    <!-- Lógica para eliminar la conversación -->
-    <script>
-        window.onload = function() {
-            resetChat(); // Llama a la función para restablecer el chat al cargar la página
+<script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=84eeda0f-8fe5-4b24-a383-08330a2160f7"> </script>
 
-            // Agrega un evento al botón "Cerrar sesión" para restablecer el chat al hacer clic
-            var logoutButton = document.getElementById("logout");
-            logoutButton.addEventListener("click", resetChat);
-        };
-    </script>
 
-    <!-- HASTA aquí llega el Chat de Tidio -->
+    <!-- HASTA aquí llega el Chat de Zandesk -->
 
     <!-- Hasta aquí llegan los codigos JS del index -->
 

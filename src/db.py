@@ -44,3 +44,5 @@ class MySQLDatabase:
 
         cursor.close()
         connection.close()
+        
+        

@@ -198,7 +198,7 @@
         </div>
 
 
-<!--ESTE ES EL CHAT-->
+
 
         <script>
             // Código JavaScript para inicializar el mapa y controlar el modal
@@ -231,28 +231,6 @@
         <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
     </div>
 
-
-    
-    <!-- Chat de Tidio -->
-    <script src="//code.tidio.co/7ebfhe2kqjbhib6rg46ab23t08jnyden.js" async></script>
-    <script>
-        function resetChat() {
-            if (typeof tidioChatApi !== "undefined") {
-                tidioChatApi.reset();
-            }
-        }
-    </script>
-
-    <!-- Lógica para eliminar la conversación -->
-    <script>
-        window.onload = function() {
-            resetChat(); // Llama a la función para restablecer el chat al cargar la página
-
-            // Agrega un evento al botón "Cerrar sesión" para restablecer el chat al hacer clic
-            var logoutButton = document.getElementById("logout");
-            logoutButton.addEventListener("click", resetChat);
-        };
-    </script>
 
 
     <!--Este es el JS del Login-->
@@ -309,6 +287,16 @@ function checkLogin() {
     </script>
 
 
+
+    
+    <!-- Chat de Tidio o Zendesk -->
+
+
+   
+<script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=84eeda0f-8fe5-4b24-a383-08330a2160f7"> </script>
+
+
+<!-- HASTA aquí llega el Chat de Zandesk -->
 
 
 </body>
