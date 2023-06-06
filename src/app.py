@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, make_response
 from flask_login import LoginManager, login_required, login_user, logout_user, current_user
 import mysql.connector
 
@@ -55,7 +55,6 @@ class User:
         if user_data:
             return User(user_data[0])
         return None
-
 
 
 @login_manager.user_loader
@@ -142,29 +141,23 @@ def inicio():
     return redirect(url_for("login"))
 
 
-# @app.route('/save_message', methods=['POST'])
-# @login_required
-# def save_message():
-#     message = request.form.get('message')
-
-#     # Agregar el mensaje a la lista de mensajes del chat
-#     chat_messages.append(message)
-
-#     # Realizar alguna lógica o procesamiento adicional con el mensaje si es necesario
-
-#     # Generar una respuesta del bot
-#     bot_response = generate_bot_response(message)
-
-#     # Agregar la respuesta del bot a la lista de mensajes del chat
-#     chat_messages.append(bot_response)
-
-#     # Retornar la respuesta como una estructura de datos JSON
-#     return jsonify({'message': bot_response})
+@app.after_request
+def add_cache_control(response):
+    # Agregar encabezados de respuesta para evitar el almacenamiento en caché
+    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "0"
+    return response
 
 
-# def generate_bot_response(message):
-   
-#     return message[::-1]
+@app.route("/logout")
+@login_required
+def logout():
+    # Cerrar sesión y redirigir al inicio de sesión
+    logout_user()
+    response = make_response(redirect(url_for("login")))
+    response.delete_cookie("tidio")  # Suponiendo que "tidio" es el nombre de la cookie a eliminar
+    return response
 
 
 @app.route('/nosotros')
@@ -189,16 +182,6 @@ def contacto():
 @login_required
 def galeria():
     return render_template("galeria.html")
-
-
-@app.route("/logout")
-@login_required
-def logout():
-    # Cerrar sesión y redirigir al inicio de sesión
-    logout_user()
-    return redirect(url_for("login"))
-    response.delete_cookie("tidio")
-    return response
 
 
 if __name__ == "__main__":
