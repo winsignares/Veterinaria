@@ -1,13 +1,13 @@
 from flask import Flask, render_template, request, redirect, url_for, session, make_response
 from flask_login import LoginManager, login_required, login_user, logout_user, current_user
 import mysql.connector
+from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = "prueba"
 
 login_manager = LoginManager(app)
 login_manager.login_view = "login"
-
 
 # Configuración de la conexión a la base de datos MySQL
 db = mysql.connector.connect(
@@ -23,7 +23,8 @@ cursor.execute("""
     CREATE TABLE IF NOT EXISTS users (
         id INT AUTO_INCREMENT PRIMARY KEY,
         email VARCHAR(255) NOT NULL,
-        password VARCHAR(255) NOT NULL
+        password VARCHAR(255) NOT NULL,
+        registration_date DATETIME NOT NULL
     )
 """)
 db.commit()
@@ -31,7 +32,6 @@ db.commit()
 # Configuración de Flask-Login
 login_manager = LoginManager(app)
 login_manager.login_view = "login"
-
 
 # Definición de la clase User para Flask-Login
 class User:
@@ -56,12 +56,10 @@ class User:
             return User(user_data[0])
         return None
 
-
 @login_manager.user_loader
 def load_user(user_id):
     # Cargar el usuario a partir de su ID almacenado en la sesión
     return User.get(user_id)
-
 
 @app.route("/")
 def home():
@@ -69,7 +67,6 @@ def home():
         return redirect(url_for("inicio"))
     else:
         return redirect(url_for("login"))
-
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -98,7 +95,6 @@ def login():
 
     return render_template("login.html")
 
-
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if current_user.is_authenticated:
@@ -108,8 +104,11 @@ def register():
         email = request.form.get("email")
         password = request.form.get("password")
 
-        # Insertar los datos del nuevo usuario en la base de datos
-        cursor.execute("INSERT INTO users (email, password) VALUES (%s, %s)", (email, password))
+        # Obtener la fecha y hora actual
+        current_date = datetime.now()
+
+        # Insertar los datos del nuevo usuario y la fecha actual en la base de datos
+        cursor.execute("INSERT INTO users (email, password, registration_date) VALUES (%s, %s, %s)", (email, password, current_date))
         db.commit()
 
         # Mostrar mensaje de éxito
@@ -120,6 +119,14 @@ def register():
         error_message = "No se pudo registrar el usuario"
         return render_template("register.html", error_message=error_message)
 
+# Esto aquí es para que el usuario no haga trampa en el login e inicio
+@app.after_request
+def add_cache_control(response):
+    # Agregar encabezados de respuesta para evitar el almacenamiento en caché
+    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "0"
+    return response
 
 @app.route("/inicio")
 @login_required
@@ -140,15 +147,7 @@ def inicio():
     # Si no hay un usuario autenticado en la sesión, redirigir al inicio de sesión
     return redirect(url_for("login"))
 
-
-@app.after_request
-def add_cache_control(response):
-    # Agregar encabezados de respuesta para evitar el almacenamiento en caché
-    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
-    response.headers["Pragma"] = "no-cache"
-    response.headers["Expires"] = "0"
-    return response
-
+# Resto de las rutas y funciones...
 
 @app.route("/logout")
 @login_required
@@ -159,30 +158,25 @@ def logout():
     response.delete_cookie("tidio")  # Suponiendo que "tidio" es el nombre de la cookie a eliminar
     return response
 
-
 @app.route('/nosotros')
 @login_required
 def nosotros():
     return render_template("nosotros.html")
-
 
 @app.route('/Spa')
 @login_required
 def Spa():
     return render_template("Spa.html")
 
-
 @app.route('/contacto')
 @login_required
 def contacto():
     return render_template("contacto.html")
 
-
 @app.route('/galeria')
 @login_required
 def galeria():
     return render_template("galeria.html")
-
 
 if __name__ == "__main__":
     app.run()
