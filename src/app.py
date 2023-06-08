@@ -4,15 +4,14 @@ import mysql.connector
 from datetime import datetime
 import bcrypt
 from itsdangerous import URLSafeTimedSerializer
+from flask_mail import Mail, Message
 import random
 import string
 import uuid
 from flask import flash
 
-
 app = Flask(__name__)
 app.secret_key = "prueba"
-
 
 # Configuración de la conexión a la base de datos MySQL
 db = mysql.connector.connect(
@@ -66,18 +65,23 @@ def load_user(user_id):
     # Cargar el usuario a partir de su ID almacenado en la sesión
     return User.get(user_id)
 
+
+
+# RUTA PRINCIPAL
+
+
 @app.route("/")
-@login_required
 def home():
     if current_user.is_authenticated:
         return redirect(url_for("inicio"))
     else:
         return redirect(url_for("login"))
+    
+# HASTA AQUÍ LA RUTA PRINCPAL
+
 
 @app.route("/login", methods=["GET", "POST"])
-
 def login():
-    
     if current_user.is_authenticated:
         return redirect(url_for("inicio"))
 
@@ -142,6 +146,7 @@ def add_cache_control(response):
     response.headers["Expires"] = "0"
     return response
 
+
 @app.route("/inicio")
 @login_required
 def inicio():
@@ -161,15 +166,13 @@ def inicio():
     # Si no hay un usuario autenticado en la sesión, redirigir al inicio de sesión
     return redirect(url_for("login"))
 
-# Resto de las rutas y funciones...
-
 @app.route("/logout")
 @login_required
 def logout():
     # Cerrar sesión y redirigir al inicio de sesión
     logout_user()
     response = make_response(redirect(url_for("login")))
-    response.delete_cookie("")  # cookie a eliminar
+    response.delete_cookie("")  # Suponiendo que "tidio" es el nombre de la cookie a eliminar
     return response
 
 @app.route('/nosotros')
@@ -191,10 +194,6 @@ def contacto():
 @login_required
 def galeria():
     return render_template("galeria.html")
-
-
-  
-    
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=5000)
