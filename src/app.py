@@ -4,7 +4,6 @@ import mysql.connector
 from datetime import datetime
 import bcrypt
 from itsdangerous import URLSafeTimedSerializer
-from flask_mail import Mail, Message
 import random
 import string
 import uuid
@@ -13,17 +12,6 @@ from flask import flash
 
 app = Flask(__name__)
 app.secret_key = "prueba"
-
-# Configuración del servidor de correo saliente
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 587
-app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'jorgeadanfonlopez@gmail.com'
-app.config['MAIL_PASSWORD'] = '1048268110'
-
-# Inicializar la extensión de correo electrónico
-mail = Mail(app)
-
 
 
 # Configuración de la conexión a la base de datos MySQL
@@ -79,6 +67,7 @@ def load_user(user_id):
     return User.get(user_id)
 
 @app.route("/")
+@login_required
 def home():
     if current_user.is_authenticated:
         return redirect(url_for("inicio"))
@@ -86,7 +75,9 @@ def home():
         return redirect(url_for("login"))
 
 @app.route("/login", methods=["GET", "POST"])
+
 def login():
+    
     if current_user.is_authenticated:
         return redirect(url_for("inicio"))
 
@@ -178,7 +169,7 @@ def logout():
     # Cerrar sesión y redirigir al inicio de sesión
     logout_user()
     response = make_response(redirect(url_for("login")))
-    response.delete_cookie("tidio")  # Suponiendo que "tidio" es el nombre de la cookie a eliminar
+    response.delete_cookie("")  # cookie a eliminar
     return response
 
 @app.route('/nosotros')
@@ -202,69 +193,7 @@ def galeria():
     return render_template("galeria.html")
 
 
-
-
-
-@app.route('/forgot_password', methods=['GET', 'POST'])
-def forgot_password():
-    if request.method == 'POST':
-        email = request.form.get('email')
-
-    
-    # Consultar el usuario por su correo electrónico en la base de datos
-        cursor = db.cursor()
-        query = "SELECT * FROM users WHERE email = %s"
-        cursor.execute(query, (email,))
-        user = cursor.fetchone()        
-
-        if user:
-           # Generar un token único
-            token = str(uuid.uuid4())
-
-            # Enviar correo electrónico de recuperación de contraseña
-            send_password_reset_email(email, token)
-
-            flash('Se ha enviado un correo electrónico con las instrucciones para restablecer la contraseña', 'success')
-            return redirect('/login')
-        else:
-            flash('Correo electrónico no encontrado', 'error')
-
-    return render_template('forgot_password.html')
-
-@app.route('/reset_password/<token>', methods=['GET', 'POST'])
-@app.route('/reset_password/<token>', methods=['GET', 'POST'])
-def reset_password(token):
-    if request.method == 'POST':
-        email = request.form.get('email')
-        password = request.form.get('password')
-
-        # Consultar el usuario por su correo electrónico en la base de datos
-        cursor = db.cursor()
-        query = "SELECT * FROM users WHERE email = %s"
-        cursor.execute(query, (email,))
-        user = cursor.fetchone()
-
-        if user:
-            # Actualizar la contraseña del usuario en la base de datos
-            password_hash = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
-            update_query = "UPDATE users SET password = %s WHERE email = %s"
-            cursor.execute(update_query, (password_hash, email))
-            db.commit()
-
-            flash('Contraseña actualizada correctamente', 'success')
-            return redirect('/login')
-        else:
-            flash('Correo electrónico no encontrado', 'error')
-
-    return render_template('reset_password.html', token=token)
-
-
-def send_password_reset_email(email, token):
-    msg = Message('Recuperación de Contraseña', sender='your_email@gmail.com', recipients=[email])
-    msg.body = f"Para restablecer tu contraseña, haz clic en el siguiente enlace: {request.host_url}reset_password/{token}"
-    mail.send(msg)
-    
-    
+  
     
 
 if __name__ == "__main__":
