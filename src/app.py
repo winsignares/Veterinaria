@@ -28,6 +28,7 @@ db = mysql.connector.connect(
 # Creación de la tabla de usuarios al iniciar la aplicación
 cursor = db.cursor()
 cursor.execute("""
+               
     CREATE TABLE IF NOT EXISTS users (
         id INT AUTO_INCREMENT PRIMARY KEY,
         email VARCHAR(255) NOT NULL,
@@ -40,6 +41,7 @@ db.commit()
 # Creación de la tabla de mascotas al iniciar la aplicación
 
 cursor.execute("""
+               
     CREATE TABLE IF NOT EXISTS pets (
         id INT AUTO_INCREMENT PRIMARY KEY,
         user_id INT NOT NULL,
@@ -49,6 +51,21 @@ cursor.execute("""
         edad INT NOT NULL,
         registration_date DATETIME NOT NULL,
         FOREIGN KEY (user_id) REFERENCES users(id)
+    )
+""")
+db.commit()
+
+
+# Creación de la tabla de contacto al iniciar la aplicación
+cursor.execute("""
+               
+        CREATE TABLE IF NOT EXISTS contacto (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            user_id INT NOT NULL,
+            nombre VARCHAR(255) NOT NULL,
+            mensaje TEXT NOT NULL,
+            registration_date DATETIME NOT NULL,
+            FOREIGN KEY (user_id) REFERENCES users(id)
     )
 """)
 db.commit()
@@ -131,7 +148,7 @@ def login():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for("inicio"))
+        return redirect(url_for("login"))
 
     if request.method == "POST":
         email = request.form.get("email")
@@ -193,7 +210,7 @@ def logout():
     # Cerrar sesión y redirigir al inicio de sesión
     logout_user()
     response = make_response(redirect(url_for("login")))
-    response.delete_cookie("tidio")  # Suponiendo que "tidio" es el nombre de la cookie a eliminar
+    response.delete_cookie("")  # Cookie a eliminar
     return response
 
 @app.route('/nosotros')
@@ -206,10 +223,33 @@ def nosotros():
 def Spa():
     return render_template("Spa.html")
 
-@app.route('/contacto')
+@app.route('/contacto', methods=['GET', 'POST'])
 @login_required
 def contacto():
-    return render_template("contacto.html")
+    if request.method == 'POST':
+        nombre = request.form.get('nombre')
+        mensaje = request.form.get('mensaje')
+
+        # Obtener el ID del usuario actualmente autenticado
+        user_id = current_user.id
+
+
+        # Obtener la fecha y hora actual
+        current_date = datetime.now()
+
+        
+        # Insertar los datos en la tabla 'contacto' junto con el ID del usuario
+        cursor = db.cursor()
+        query = 'INSERT INTO contacto (user_id, nombre, mensaje, registration_date) VALUES (%s, %s, %s, %s)'
+        cursor.execute(query, (user_id, nombre, mensaje, current_date))
+        db.commit()
+
+        # Mostrar mensaje de éxito
+        flash('Mensaje enviado exitosamente', 'success')
+        return redirect(url_for('contacto'))
+
+    return render_template('contacto.html')
+
 
 @app.route('/galeria')
 @login_required
@@ -243,6 +283,10 @@ def register_pet():
         return redirect(url_for("register_pet"))
 
     return render_template("register_pet.html")
+
+
+
+
 
 
 if __name__ == "__main__":

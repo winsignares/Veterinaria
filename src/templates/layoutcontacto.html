@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baño Huellas - Contacto</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Font+Name&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css">
+
+    <!-- Este es el estilo del Navbar -->
+    <style>
+        header {
+            background-color: #bce0ba;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: 50px;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-logo {
+            margin-right: 10px;
+        }
+
+        .logo {
+            width: 50px;
+            height: auto;
+        }
+
+        .navbar-title h1 {
+            margin: 0;
+            font-family: 'Font Name', sans-serif;
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .navbar-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Estilos para los botones de inicio y perfil */
+        .navbar-buttons button {
+            font-family: 'Font Name', sans-serif;
+            font-size: 14px;
+            padding: 8px 16px;
+            border-radius: 50px;
+            color: rgb(244, 247, 247);
+            background-color: rgb(61, 187, 44);
+            margin-left: 70px;
+            cursor: pointer;
+        }
+    </style>
+    <!-- Hasta aquí llega el estilo del navbar -->
+</head>
+
+<body>
+
+    <header>
+        <div class="navbar">
+            <div class="navbar-logo">
+                <img class="logo" src="{{ url_for('static', filename='img/vet.png') }}" alt="Logo">
+            </div>
+            <div class="navbar-title">
+                <h1>Baño Huellas</h1>
+            </div>
+            <div class="navbar-buttons">
+                <button class="btn btn-primary rounded-pill me-2" onclick="window.location.href = 'inicio'">Inicio</button>
+            </div>
+        </div>
+    </header>
+
+    {% block content %}{% endblock %}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+
+</html>

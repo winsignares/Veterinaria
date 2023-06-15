@@ -30,12 +30,16 @@ class MySQLDatabase:
 
         # Define la sentencia SQL para crear la tabla contacto
         create_contacto_table_query = '''
-            CREATE TABLE IF NOT EXISTS contacto (
-                id INT AUTO_INCREMENT PRIMARY KEY,
-                nombre VARCHAR(255) NOT NULL,
-                mensaje VARCHAR(255) NOT NULL
-            )
-        '''
+        CREATE TABLE IF NOT EXISTS contacto (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            user_id INT NOT NULL,
+            nombre VARCHAR(255) NOT NULL,
+            mensaje TEXT NOT NULL,
+            registration_date DATETIME NOT NULL,
+            FOREIGN KEY (user_id) REFERENCES users(id)
+    )
+'''
+
 
         # Define la sentencia SQL para crear la tabla pets
         create_pets_table_query = '''
