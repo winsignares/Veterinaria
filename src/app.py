@@ -4,7 +4,6 @@ import mysql.connector
 from datetime import datetime
 import bcrypt
 from itsdangerous import URLSafeTimedSerializer
-from flask_mail import Mail, Message
 import random
 import string
 import uuid
@@ -14,18 +13,6 @@ from flask import flash
 app = Flask(__name__)
 app.secret_key = "prueba"
 
-# Configuración del servidor de correo saliente
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 587
-app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'jorgeadanfonlopez@gmail.com'
-app.config['MAIL_PASSWORD'] = '1048268110'
-
-# Inicializar la extensión de correo electrónico
-mail = Mail(app)
-
-
-
 # Configuración de la conexión a la base de datos MySQL
 db = mysql.connector.connect(
     host="localhost",
@@ -33,6 +20,10 @@ db = mysql.connector.connect(
     password="",
     database="baño"
 )
+
+
+##### CREACIÓN DE LAS TABLAS AL INICIAR APP.PY ##########
+
 
 # Creación de la tabla de usuarios al iniciar la aplicación
 cursor = db.cursor()
@@ -45,6 +36,24 @@ cursor.execute("""
     )
 """)
 db.commit()
+
+# Creación de la tabla de mascotas al iniciar la aplicación
+
+cursor.execute("""
+    CREATE TABLE IF NOT EXISTS pets (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        user_id INT NOT NULL,
+        pet_name VARCHAR(255) NOT NULL,
+        especie VARCHAR(255) NOT NULL,
+        raza VARCHAR(255) NOT NULL,
+        edad INT NOT NULL,
+        registration_date DATETIME NOT NULL,
+        FOREIGN KEY (user_id) REFERENCES users(id)
+    )
+""")
+db.commit()
+    
+    ##### HASTA AQUÍ LA CREACIÓN DE LAS TABLAS AL INICIAR APP.PY ##########
 
 # Configuración de Flask-Login
 login_manager = LoginManager(app)
@@ -78,12 +87,15 @@ def load_user(user_id):
     # Cargar el usuario a partir de su ID almacenado en la sesión
     return User.get(user_id)
 
+
 @app.route("/")
 def home():
     if current_user.is_authenticated:
         return redirect(url_for("inicio"))
     else:
         return redirect(url_for("login"))
+    
+    
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -113,6 +125,7 @@ def login():
         return render_template("login.html", error_message=error_message)
 
     return render_template("login.html")
+
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -170,7 +183,9 @@ def inicio():
     # Si no hay un usuario autenticado en la sesión, redirigir al inicio de sesión
     return redirect(url_for("login"))
 
-# Resto de las rutas y funciones...
+
+
+# Este es el resto de las rutas y sus funciones ...
 
 @app.route("/logout")
 @login_required
@@ -202,70 +217,33 @@ def galeria():
     return render_template("galeria.html")
 
 
+@app.route("/register_pet", methods=["GET", "POST"])
+@login_required
+def register_pet():
+    if request.method == "POST":
+        pet_name = request.form.get("nombre")
+        especie = request.form.get("especie")
+        raza = request.form.get("raza")
+        edad = request.form.get("edad")
 
+        # Obtener el ID del usuario actualmente autenticado
+        user_id = current_user.id
 
+        # Obtener la fecha y hora actual
+        current_date = datetime.now()
 
-@app.route('/forgot_password', methods=['GET', 'POST'])
-def forgot_password():
-    if request.method == 'POST':
-        email = request.form.get('email')
-
-    
-    # Consultar el usuario por su correo electrónico en la base de datos
+        # Insertar los datos de la mascota en la base de datos
         cursor = db.cursor()
-        query = "SELECT * FROM users WHERE email = %s"
-        cursor.execute(query, (email,))
-        user = cursor.fetchone()        
+        query = "INSERT INTO pets (user_id, pet_name, especie, raza, edad, registration_date) VALUES (%s, %s, %s, %s, %s, %s)"
+        cursor.execute(query, (user_id, pet_name, especie, raza, edad, current_date))
+        db.commit()
 
-        if user:
-           # Generar un token único
-            token = str(uuid.uuid4())
+        # Mostrar mensaje de éxito
+        flash("Mascota registrada exitosamente", "success")
+        return redirect(url_for("register_pet"))
 
-            # Enviar correo electrónico de recuperación de contraseña
-            send_password_reset_email(email, token)
+    return render_template("register_pet.html")
 
-            flash('Se ha enviado un correo electrónico con las instrucciones para restablecer la contraseña', 'success')
-            return redirect('/login')
-        else:
-            flash('Correo electrónico no encontrado', 'error')
-
-    return render_template('forgot_password.html')
-
-@app.route('/reset_password/<token>', methods=['GET', 'POST'])
-@app.route('/reset_password/<token>', methods=['GET', 'POST'])
-def reset_password(token):
-    if request.method == 'POST':
-        email = request.form.get('email')
-        password = request.form.get('password')
-
-        # Consultar el usuario por su correo electrónico en la base de datos
-        cursor = db.cursor()
-        query = "SELECT * FROM users WHERE email = %s"
-        cursor.execute(query, (email,))
-        user = cursor.fetchone()
-
-        if user:
-            # Actualizar la contraseña del usuario en la base de datos
-            password_hash = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
-            update_query = "UPDATE users SET password = %s WHERE email = %s"
-            cursor.execute(update_query, (password_hash, email))
-            db.commit()
-
-            flash('Contraseña actualizada correctamente', 'success')
-            return redirect('/login')
-        else:
-            flash('Correo electrónico no encontrado', 'error')
-
-    return render_template('reset_password.html', token=token)
-
-
-def send_password_reset_email(email, token):
-    msg = Message('Recuperación de Contraseña', sender='your_email@gmail.com', recipients=[email])
-    msg.body = f"Para restablecer tu contraseña, haz clic en el siguiente enlace: {request.host_url}reset_password/{token}"
-    mail.send(msg)
-    
-    
-    
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)

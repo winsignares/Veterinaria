@@ -195,6 +195,7 @@
     <!-- Estas son las tarjetas -->
     <main>
         <div class="card-container">
+
             <div class="card">
                 <img class="card-image" src="{{ url_for('static', filename='img/vet.png') }}" alt="Servicio 1">
     
@@ -209,6 +210,7 @@
                 <p>Aquí encontrarás los paquetes de servicios.</p>
                 <a class="card-button" href="{{ url_for('Spa') }}">Adquirir</a></center>
             </div>
+
             <div class="card">
                 <img class="card-image" src="{{ url_for('static', filename='img/vet.png') }}" alt="Servicio 3">
     
@@ -216,7 +218,17 @@
                 <p>Contáctanos para saber tu opinión.</p>
                 <a class="card-button" href="{{ url_for('contacto') }}">Ver más</a></center>
             </div>
+
+            <div class="card">
+                <img class="card-image" src="{{ url_for('static', filename='img/vet.png') }}" alt="Servicio 4">
+    
+                <center><h3>Registrar mascota</h3>
+                <p>Registra aquí tu mascota.</p>
+                <a class="card-button" href="{{ url_for('register_pet') }}">Registrar</a></center>
+            </div>
+
         </div>
+
     </main>
     
 

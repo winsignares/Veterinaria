@@ -37,12 +37,25 @@ class MySQLDatabase:
             )
         '''
 
+        # Define la sentencia SQL para crear la tabla pets
+        create_pets_table_query = '''
+            CREATE TABLE IF NOT EXISTS pets (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                user_id INT NOT NULL,
+                pet_name VARCHAR(255) NOT NULL,
+                especie VARCHAR(255) NOT NULL,
+                raza VARCHAR(255) NOT NULL,
+                edad INT NOT NULL,
+                registration_date DATETIME NOT NULL,
+                FOREIGN KEY (user_id) REFERENCES users(id)
+            )
+        '''
+
         # Ejecuta las sentencias SQL para crear las tablas
         cursor.execute(create_users_table_query)
         cursor.execute(create_contacto_table_query)
+        cursor.execute(create_pets_table_query)
         connection.commit()
 
         cursor.close()
         connection.close()
-        
-        
