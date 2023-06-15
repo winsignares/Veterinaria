@@ -285,6 +285,15 @@ def register_pet():
     return render_template("register_pet.html")
 
 
+@app.route('/pagoexitoso')
+@login_required
+def pagoexitoso():
+    return render_template("pagoexitoso.html")
+
+@app.route('/timeline')
+@login_required
+def timeline():
+    return render_template("timeline.html")
 
 
 

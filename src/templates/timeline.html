@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Timeline</title>
+    <style>
+        /* Estilo para el carrusel */
+        #carousel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #carousel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <div id="carousel">
+        {% for image in images %}
+        <img src="{{ url_for('static', filename='img/vet.png') }}" alt="Imagen">
+        <img src="{{ url_for('static', filename='img/vet.png') }}" alt="Imagen">
+        <img src="{{ url_for('static', filename='img/vet.png') }}" alt="Imagen">
+        <img src="{{ url_for('static', filename='img/vet.png') }}" alt="Imagen">
+        <img src="{{ url_for('static', filename='img/vet.png') }}" alt="Imagen">
+        {% endfor %}
+    </div>
+
+    <script>
+        // Configuración del carrusel
+        const carousel = document.getElementById('carousel');
+        const images = carousel.getElementsByTagName('img');
+        let currentIndex = 0;
+
+        // Función para mostrar la siguiente imagen
+        function showNextImage() {
+            images[currentIndex].style.opacity = '0';
+            currentIndex = (currentIndex + 1) % images.length;
+            images[currentIndex].style.opacity = '1';
+        }
+
+        // Mostrar la primera imagen al cargar la página
+        images[currentIndex].style.opacity = '1';
+
+        // Cambiar de imagen cada 5 segundos
+        setInterval(showNextImage, 5000);
+    </script>
+</body>
+</html>

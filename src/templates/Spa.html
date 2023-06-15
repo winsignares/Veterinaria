@@ -151,7 +151,7 @@
     }
 
 </style>
-<!-- Hasta aquíllega el esteilo del navbar -->
+<!-- Hasta aquí llega el estilo del navbar -->
 
     
 
@@ -185,25 +185,32 @@
 
 
     <!-- Estas son las tarjetas -->
+
     <main>
         <div class="card-container">
-            <div class="card">
-                <img class="card-image" src="{{ url_for('static', filename='img/paquetebasicperro.jpg') }}" alt="Servicio 1">
 
-                <center><h3>Paquete Básico</h3>
-                <p>En este paquete encontrarás <br><li>Baño, secado, masaje.<br><br><center><b>COP $ 20.000</b></center></li></p>
-                <a href="https://biz.payulatam.com/B0f2a962384F074"><img src="https://ecommerce.payulatam.com/img-secure-2015/boton_pagar_mediano.png"></a>
-            </center>
+            <!-- paquete basico -->
+            <div class="card">
+
+
+            <stripe-buy-button
+                buy-button-id="buy_btn_1NJLBdGyhcsn1H9dhx94sWxr"
+                publishable-key="pk_test_51NGlFLGyhcsn1H9dthas2LjnsRF7EkE0rhqNDqeZ9Wyg68MDCRUcxTBQR6guzIvLv6ndoobfOsEymF5GiPwDY1zr00g53SL3ia"
+>
+            </stripe-buy-button>
+
             </div>
-            
+
+
+            <!-- paquete premium -->
+
             <div class="card">
-                <img class="card-image" src="{{ url_for('static', filename='img/chihuahua.jpg') }}" alt="Servicio 3">
 
-                <center><h3>Paquete Premium</h3>
-                <p>En este paquete encontrarás <br><li>Baño, secado, masaje, corte de pelo.<br><br><center><b>COP $ 57.500</b></center></li></p>
-                <a href="https://biz.payulatam.com/B0f2a967BDE8109"><img src="https://ecommerce.payulatam.com/img-secure-2015/boton_pagar_mediano.png"></a>
-
-            </center>
+              <stripe-buy-button
+                buy-button-id="buy_btn_1NJL1bGyhcsn1H9djf8sL2wB"
+                publishable-key="pk_test_51NGlFLGyhcsn1H9dthas2LjnsRF7EkE0rhqNDqeZ9Wyg68MDCRUcxTBQR6guzIvLv6ndoobfOsEymF5GiPwDY1zr00g53SL3ia"
+              >
+              </stripe-buy-button>
 
             </div>
 -
@@ -451,6 +458,9 @@ function checkLogin() {
 
 <!-- HASTA aquí llega el Chat de Zandesk -->
 
+<!--ESTE ES EL boton de comprar-->
+<script async src="https://js.stripe.com/v3/buy-button.js">
+</script>
 
 </body>
 
