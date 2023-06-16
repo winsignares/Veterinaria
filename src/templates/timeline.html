@@ -1,7 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Timeline</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" href="{{ url_for('static', filename='img/vet.png') }}" type="image/png">
+
+    <title>Baño Huellas - Timeline</title>
+ 
+    
     <style>
         /* Estilo para el carrusel */
         #carousel {
@@ -9,46 +17,79 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: calc(100% - 60px); /* Resta 60px para dejar espacio para el navbar */
             overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-item {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        .carousel-item.active {
+            opacity: 1;
         }
 
         #carousel img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
         }
     </style>
+
 </head>
+
 <body>
+    
     <div id="carousel">
-        {% for image in images %}
-        <img src="{{ url_for('static', filename='img/vet.png') }}" alt="Imagen">
-        <img src="{{ url_for('static', filename='img/vet.png') }}" alt="Imagen">
-        <img src="{{ url_for('static', filename='img/vet.png') }}" alt="Imagen">
-        <img src="{{ url_for('static', filename='img/vet.png') }}" alt="Imagen">
-        <img src="{{ url_for('static', filename='img/vet.png') }}" alt="Imagen">
-        {% endfor %}
+        <div class="carousel-item active">
+            <img src="{{ url_for('static', filename='img/vet.png') }}" alt="Imagen 1">
+        </div>
+        <div class="carousel-item">
+            <img src="{{ url_for('static', filename='img/Baño.gif') }}" alt="Imagen 2">
+        </div>
+        <div class="carousel-item">
+            <img src="{{ url_for('static', filename='img/Enjuague.gif') }}" alt="Imagen 3">
+        </div>
+        <div class="carousel-item">
+            <img src="{{ url_for('static', filename='img/Secado.gif') }}" alt="Imagen 4">
+        </div>
+        <div class="carousel-item">
+            <img src="{{ url_for('static', filename='img/Appproductos.gif') }}" alt="Imagen 4">
+        </div>
+        <div class="carousel-item">
+            <img src="{{ url_for('static', filename='img/Masaje.gif') }}" alt="Imagen 4">
+        </div>
+        <div class="carousel-item">
+            <img src="{{ url_for('static', filename='img/terminado.gif') }}" alt="Imagen 5">
+        </div>
     </div>
 
     <script>
         // Configuración del carrusel
         const carousel = document.getElementById('carousel');
-        const images = carousel.getElementsByTagName('img');
+        const items = carousel.getElementsByClassName('carousel-item');
         let currentIndex = 0;
 
         // Función para mostrar la siguiente imagen
         function showNextImage() {
-            images[currentIndex].style.opacity = '0';
-            currentIndex = (currentIndex + 1) % images.length;
-            images[currentIndex].style.opacity = '1';
+            items[currentIndex].classList.remove('active');
+            currentIndex = (currentIndex + 1) % items.length;
+            items[currentIndex].classList.add('active');
         }
 
         // Mostrar la primera imagen al cargar la página
-        images[currentIndex].style.opacity = '1';
+        items[currentIndex].classList.add('active');
 
-        // Cambiar de imagen cada 5 segundos
-        setInterval(showNextImage, 5000);
+        // Cambiar de imagen cada 10 segundos
+        setInterval(showNextImage, 10000);
     </script>
 </body>
 </html>
