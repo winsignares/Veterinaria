@@ -2,9 +2,19 @@ Para el funcionamiento correcto tengo que instlar los siguientes paquetes PIP:
 
 SRC:.....
 
+
 pip install flask
 pip install flask_login
 pip install mysql
 pip install mysql-connector-python
 pip install bcrypt
-pip install Flask-Mail
+pip install Werkzeug
+
+
+La cuenta de Gmail del baño es banohuellas@gmail.com
+y la contraseña es <sena2504452>!
+
+
+Este es el link para las tarjetas de prueba para comprar:
+
+https://stripe.com/docs/testing?testing-method=card-numbers#visa
