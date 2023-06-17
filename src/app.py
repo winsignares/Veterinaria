@@ -18,7 +18,7 @@ db = mysql.connector.connect(
     host="localhost",
     user="root",
     password="",
-    database="bano"
+    database="baño"
 )
 
 
@@ -117,7 +117,7 @@ def home():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for("inicio"))
+        return redirect(url_for("login"))
 
     if request.method == "POST":
         email = request.form.get("email")
