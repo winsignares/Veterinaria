@@ -1,7 +1,3 @@
-Para el funcionamiento correcto tengo que instlar los siguientes paquetes PIP: 
-
-SRC:.....
-
 
 pip install flask
 pip install flask_login
