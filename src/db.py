@@ -54,11 +54,24 @@ class MySQLDatabase:
                 FOREIGN KEY (user_id) REFERENCES users(id)
             )
         '''
+        
+        # Define la sentencia SQL para crear la tabla ventas
+        create_ventas_table_query = '''
+            CREATE TABLE IF NOT EXISTS ventas (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                user_id INT NOT NULL,
+                descripcion_paquete VARCHAR(255) NOT NULL,
+                valor DECIMAL(10, 2) NOT NULL,
+                registration_date DATETIME NOT NULL,
+                FOREIGN KEY (user_id) REFERENCES users(id)
+            )
+        '''
 
         # Ejecuta las sentencias SQL para crear las tablas
         cursor.execute(create_users_table_query)
         cursor.execute(create_contacto_table_query)
         cursor.execute(create_pets_table_query)
+        cursor.execute(create_ventas_table_query)
         connection.commit()
 
         cursor.close()

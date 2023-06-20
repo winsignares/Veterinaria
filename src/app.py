@@ -69,7 +69,23 @@ cursor.execute("""
     )
 """)
 db.commit()
-    
+
+# Creación de la tabla de ventas al iniciar la aplicación
+cursor.execute("""
+
+        CREATE TABLE IF NOT EXISTS ventas (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            user_id INT NOT NULL,
+            descripcion_paquete VARCHAR(255) NOT NULL,
+            valor DECIMAL(10, 2) NOT NULL,
+            registration_date DATETIME NOT NULL,
+            FOREIGN KEY (user_id) REFERENCES users(id)
+    )
+""")
+
+
+db.commit()
+
     ##### HASTA AQUÍ LA CREACIÓN DE LAS TABLAS AL INICIAR APP.PY ##########
 
 # Configuración de Flask-Login
@@ -288,7 +304,44 @@ def register_pet():
 @app.route('/pagoexitoso')
 @login_required
 def pagoexitoso():
+    # Obtener el ID del usuario actualmente autenticado
+    user_id = current_user.id
+    
+    # Obtener la fecha y hora actual
+    current_date = datetime.now()
+    
+    # Definir la descripción del paquete y su valor
+    descripcion_paquete = "Paquete básico"
+    valor = 27000
+    
+    # Insertar el registro en la base de datos
+    cursor = db.cursor()
+    query = "INSERT INTO ventas (user_id, descripcion_paquete, valor, registration_date) VALUES (%s, %s, %s, %s)"
+    cursor.execute(query, (user_id, descripcion_paquete, valor, current_date))
+    db.commit()
+    
     return render_template("pagoexitoso.html")
+
+@app.route('/pagoexitoso2')
+@login_required
+def pagoexitoso2():
+    # Obtener el ID del usuario actualmente autenticado
+    user_id = current_user.id
+    
+    # Obtener la fecha y hora actual
+    current_date = datetime.now()
+    
+    # Definir la descripción del paquete y su valor
+    descripcion_paquete = "Paquete Premium"
+    valor = 50000
+    
+    # Insertar el registro en la base de datos
+    cursor = db.cursor()
+    query = "INSERT INTO ventas (user_id, descripcion_paquete, valor, registration_date) VALUES (%s, %s, %s, %s)"
+    cursor.execute(query, (user_id, descripcion_paquete, valor, current_date))
+    db.commit()
+    
+    return render_template("pagoexitoso2.html")
 
 @app.route('/timeline')
 @login_required
