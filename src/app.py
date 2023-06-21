@@ -273,6 +273,10 @@ def galeria():
     return render_template("galeria.html")
 
 
+from datetime import datetime, timedelta
+
+# ...
+
 @app.route("/register_pet", methods=["GET", "POST"])
 @login_required
 def register_pet():
@@ -299,14 +303,13 @@ def register_pet():
             time_difference = current_date - existing_pet[0]
             time_difference_minutes = int(time_difference.total_seconds() / 60)
 
-        if time_difference_minutes < 60:
-            # Calcular el tiempo restante en minutos
-            remaining_time_minutes = 60 - time_difference_minutes
+            if time_difference_minutes < 60:
+                # Calcular el tiempo restante en minutos
+                remaining_time_minutes = 60 - time_difference_minutes
 
-        # Mostrar un mensaje de alerta con el tiempo restante en minutos
-        flash(f"No puedes registrar a {pet_name} nuevamente hasta dentro de {remaining_time_minutes} minutos.", "warning")
-        return redirect(url_for("register_pet"))
-
+                # Mostrar un mensaje de alerta con el tiempo restante en minutos
+                flash(f"No puedes registrar a {pet_name} nuevamente hasta dentro de {remaining_time_minutes} minutos.", "warning")
+                return redirect(url_for("register_pet"))
 
         # Insertar los datos de la mascota en la base de datos
         query = "INSERT INTO pets (user_id, pet_name, especie, raza, edad, registration_date) VALUES (%s, %s, %s, %s, %s, %s)"
@@ -318,6 +321,7 @@ def register_pet():
         return redirect(url_for("register_pet"))
 
     return render_template("register_pet.html")
+
 
 
 #Esta es la ruta de lo que se muestra despues del pago
