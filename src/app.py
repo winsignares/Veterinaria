@@ -320,6 +320,8 @@ def register_pet():
     return render_template("register_pet.html")
 
 
+#Esta es la ruta de lo que se muestra despues del pago
+
 
 @app.route('/pagoexitoso')
 @login_required
