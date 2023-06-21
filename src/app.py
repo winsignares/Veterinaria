@@ -170,6 +170,17 @@ def register():
         email = request.form.get("email")
         password = request.form.get("password")
 
+        # Verificar si el usuario ya está registrado en la base de datos
+        cursor = db.cursor()
+        query = "SELECT * FROM users WHERE email = %s"
+        cursor.execute(query, (email,))
+        existing_user = cursor.fetchone()
+
+        if existing_user:
+            # El usuario ya está registrado, mostrar mensaje de alerta
+            flash("El usuario ya está registrado", "warning")
+            return render_template("register.html")
+
         # Generar el hash y salting de la contraseña
         password_hash = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
 
@@ -181,12 +192,11 @@ def register():
         db.commit()
 
         # Mostrar mensaje de éxito
-        success_message = "Usuario registrado exitosamente"
-        return render_template("register.html", success_message=success_message)
-    else:
-        # El registro no fue exitoso
-        error_message = "No se pudo registrar el usuario"
-        return render_template("register.html", error_message=error_message)
+        flash("Usuario registrado exitosamente", "success")
+        return render_template("register.html")
+
+    return render_template("register.html")
+
 
 # Esto aquí es para que el usuario no haga trampa en el login e inicio
 @app.after_request
@@ -275,7 +285,7 @@ def galeria():
 
 from datetime import datetime, timedelta
 
-# ...
+# Registrar mascotaaaaaaa
 
 @app.route("/register_pet", methods=["GET", "POST"])
 @login_required

@@ -3,7 +3,6 @@
 {% block title %}Registro de Mascotas - Baño Huellas{% endblock %}
 
 {% block content %}
-
 <script>
     // Función para invalidar el historial de navegación
     function invalidateHistory() {
@@ -56,17 +55,19 @@
         margin-bottom: 20px;
         text-align: center;
     }
+
+    .success-alert {
+        background-color: #d4edda;
+        color: #155724;
+        padding: 10px;
+        border-radius: 5px;
+        text-align: center;
+        font-weight: bold;
+    }
 </style>
 
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <div class="alert alert-warning">
-      {% for message in messages %}
-        {{ message }}
-      {% endfor %}
-    </div>
-  {% endif %}
-{% endwith %}
+
+
 <!-- Modal -->
 
 <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
@@ -108,6 +109,13 @@
             <div class="register-form">
                 <img src="{{ url_for('static', filename='img/vet.png') }}" alt="Logo" class="logo">
                 <h2 class="form-title"><br>Registro de Mascotas</h2>
+                <div class="success-alert">
+                    {% with messages = get_flashed_messages() %}
+                      {% for message in messages %}
+                        <p>{{ message }}</p>
+                      {% endfor %}
+                    {% endwith %}
+                </div>
                 <form method="POST">
                     <div class="form-group">
                         <label for="nombre">Nombre</label>
