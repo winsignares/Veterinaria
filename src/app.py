@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session, make_response
 from flask_login import LoginManager, login_required, login_user, logout_user, current_user
 import mysql.connector
-from datetime import datetime
+from datetime import datetime, timedelta
 import bcrypt
 from itsdangerous import URLSafeTimedSerializer
 import random
@@ -288,8 +288,26 @@ def register_pet():
         # Obtener la fecha y hora actual
         current_date = datetime.now()
 
-        # Insertar los datos de la mascota en la base de datos
+        # Verificar si ya existe una mascota registrada con el mismo nombre en la última hora
         cursor = db.cursor()
+        query = "SELECT registration_date FROM pets WHERE user_id = %s AND pet_name = %s ORDER BY registration_date DESC LIMIT 1"
+        cursor.execute(query, (user_id, pet_name))
+        existing_pet = cursor.fetchone()
+
+        if existing_pet:
+    # Calcular la diferencia de tiempo entre el último registro y la hora actual
+    time_difference = current_date - existing_pet[0]
+    time_difference_minutes = int(time_difference.total_seconds() / 60)
+
+    if time_difference_minutes < 60:
+        # Calcular el tiempo restante en minutos
+        remaining_time_minutes = 60 - time_difference_minutes
+
+        # Mostrar un mensaje de alerta con el tiempo restante en minutos
+        flash(f"No puedes registrar a {pet_name} nuevamente hasta dentro de {remaining_time_minutes} minutos.", "warning")
+        return redirect(url_for("register_pet"))
+
+        # Insertar los datos de la mascota en la base de datos
         query = "INSERT INTO pets (user_id, pet_name, especie, raza, edad, registration_date) VALUES (%s, %s, %s, %s, %s, %s)"
         cursor.execute(query, (user_id, pet_name, especie, raza, edad, current_date))
         db.commit()
@@ -299,6 +317,7 @@ def register_pet():
         return redirect(url_for("register_pet"))
 
     return render_template("register_pet.html")
+
 
 
 @app.route('/pagoexitoso')
