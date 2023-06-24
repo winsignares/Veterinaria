@@ -154,7 +154,7 @@ def login():
                 return redirect(url_for("inicio"))
 
         # Si el usuario no existe o las credenciales son incorrectas, mostrar mensaje de error
-        error_message = "Correo electrónico o contraseña incorrectos"
+        error_message = "Datos incorrectos, hazlo nuevamente o registrate si no tienes cuenta."
         return render_template("login.html", error_message=error_message)
 
     return render_template("login.html")
@@ -178,7 +178,7 @@ def register():
 
         if existing_user:
             # El usuario ya está registrado, mostrar mensaje de alerta
-            flash("El usuario ya está registrado", "warning")
+            flash("El usuario ya está registrado, inicia sección.", "warning")
             return render_template("register.html")
 
         # Generar el hash y salting de la contraseña
@@ -192,7 +192,7 @@ def register():
         db.commit()
 
         # Mostrar mensaje de éxito
-        flash("Usuario registrado exitosamente", "success")
+        flash("Usuario registrado exitosamente, inicia sección.", "success")
         return render_template("register.html")
 
     return render_template("register.html")
